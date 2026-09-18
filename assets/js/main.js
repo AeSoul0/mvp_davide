@@ -1,196 +1,410 @@
 /**
  * @file assets/js/main.js
  * @description Handles interactivity for Davide Lombardi's website.
- * Includes mobile menu logic, scroll-triggered animations
- * (Intersection Observer), and a musical Easter Egg ("Hidden Notes").
+ *
+ * Includes:
+ * - navbar scroll effect
+ * - accessible mobile menu with focus management
+ * - scroll-triggered reveal animations
+ * - musical hidden notes / YouTube mini-player
+ * - YouTube facade player
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ---------------------------------------------------------------------------
+  // Initial page state
+  // ---------------------------------------------------------------------------
+
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
 
-  const yearEl = document.getElementById('year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
+  // Preserve anchor navigation when the page is opened with a hash.
+  if (!window.location.hash) {
+    window.scrollTo(0, 0);
   }
 
-  // --- Navbar Scroll Effect ---
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  }, { passive: true });
+  // ---------------------------------------------------------------------------
+  // Dynamic footer year
+  // ---------------------------------------------------------------------------
 
-  // --- Mobile Menu ---
+  const yearEl = document.getElementById('year');
+
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
+  }
+
+  // ---------------------------------------------------------------------------
+  // Navbar scroll effect
+  // ---------------------------------------------------------------------------
+
+  const navbar = document.getElementById('navbar');
+
+  if (navbar) {
+    const updateNavbar = () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    };
+
+    updateNavbar();
+
+    window.addEventListener('scroll', updateNavbar, {
+      passive: true
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Mobile menu
+  // ---------------------------------------------------------------------------
+
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
 
   if (mobileMenuBtn && mobileMenu) {
-    const toggleMenu = () => {
-      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-      const newState = !isExpanded;
-      mobileMenuBtn.setAttribute('aria-expanded', newState);
-      mobileMenuBtn.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      mobileMenu.setAttribute('aria-hidden', !newState);
-      document.body.style.overflow = newState ? 'hidden' : '';
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(', ');
+
+    const getFocusableElements = () => {
+      return [...mobileMenu.querySelectorAll(focusableSelector)];
     };
+
+    const setMenuState = (isOpen, moveFocus = true) => {
+      mobileMenuBtn.setAttribute(
+        'aria-expanded',
+        String(isOpen)
+      );
+
+      mobileMenuBtn.setAttribute(
+        'aria-label',
+        isOpen ? 'Chiudi menu' : 'Apri menu'
+      );
+
+      mobileMenu.classList.toggle('open', isOpen);
+      mobileMenuBtn.classList.toggle('open', isOpen);
+
+      mobileMenu.setAttribute(
+        'aria-hidden',
+        String(!isOpen)
+      );
+
+      if (isOpen) {
+        mobileMenu.removeAttribute('inert');
+        document.body.style.overflow = 'hidden';
+
+        if (moveFocus) {
+          const focusableElements = getFocusableElements();
+
+          if (focusableElements.length > 0) {
+            focusableElements[0].focus();
+          }
+        }
+      } else {
+        mobileMenu.setAttribute('inert', '');
+        document.body.style.overflow = '';
+
+        if (moveFocus) {
+          mobileMenuBtn.focus();
+        }
+      }
+    };
+
+    const toggleMenu = () => {
+      const isOpen =
+        mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+
+      setMenuState(!isOpen);
+    };
+
+    // Ensure the initial state is correct even if the HTML is edited manually.
+    setMenuState(false, false);
 
     mobileMenuBtn.addEventListener('click', toggleMenu);
 
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
         if (mobileMenu.classList.contains('open')) {
-          toggleMenu();
+          setMenuState(false, false);
         }
       });
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (!mobileMenu.classList.contains('open')) return;
+    document.addEventListener('keydown', event => {
+      if (!mobileMenu.classList.contains('open')) {
+        return;
+      }
 
-      if (e.key === 'Escape') {
-        toggleMenu();
-        mobileMenuBtn.focus();
-      } else if (e.key === 'Tab') {
-        const focusable = mobileMenu.querySelectorAll('a[href], button');
-        const first = mobileMenuBtn;
-        const last = focusable.length ? focusable[focusable.length - 1] : first;
+      // Escape closes the menu and returns focus to the menu button.
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setMenuState(false, true);
+        return;
+      }
 
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
+      // Trap keyboard focus inside the mobile menu.
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      const focusableElements = getFocusableElements();
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement =
+        focusableElements[focusableElements.length - 1];
+
+      if (
+        event.shiftKey &&
+        document.activeElement === firstElement
+      ) {
+        event.preventDefault();
+        lastElement.focus();
+        return;
+      }
+
+      if (
+        !event.shiftKey &&
+        document.activeElement === lastElement
+      ) {
+        event.preventDefault();
+        firstElement.focus();
       }
     });
   }
 
-  // --- Intersection Observer for Animations ---
-  // Adds the .in-view class to elements with .reveal when they enter the viewport
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && revealEls.length > 0) {
-    const observerOptions = {
-      root: null, // use the viewport as container
-      rootMargin: '0px 0px -10% 0px', // trigger animation slightly before fully in view
-      threshold: 0.1
-    };
+  // ---------------------------------------------------------------------------
+  // Intersection Observer / reveal animations
+  // ---------------------------------------------------------------------------
 
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
+  const revealElements = document.querySelectorAll('.reveal');
+
+  if (
+    'IntersectionObserver' in window &&
+    revealElements.length > 0
+  ) {
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
           entry.target.classList.add('in-view');
-          observer.unobserve(entry.target); // Stop observing once animated (performance optimization)
-        }
-      });
-    }, observerOptions);
+          observerInstance.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.1
+      }
+    );
 
-    revealEls.forEach(el => observer.observe(el));
+    revealElements.forEach(element => {
+      observer.observe(element);
+    });
   } else {
-    // Fallback for older browsers that do not support IntersectionObserver
-    revealEls.forEach(el => el.classList.add('in-view'));
+    // Fallback for browsers without IntersectionObserver.
+    revealElements.forEach(element => {
+      element.classList.add('in-view');
+    });
   }
 
-  // --- Hidden Notes (Easter Egg) ---
+  // ---------------------------------------------------------------------------
+  // Hidden musical notes
+  // ---------------------------------------------------------------------------
+
   const HIDDEN_TRACKS = [
-    { id: 'c33q87s03h4', start: 1554, title: 'Rachmaninov — Concerto n. 2' },
-    { id: 'kYJ7w4V67pQ', start: 45,   title: 'Čajkovskij — Concerto n. 1' },
-    { id: 'k5q4Gf54n1I', start: 35,   title: 'Rachmaninov — Concerto n. 3' },
-    { id: 'wX-yUaJ9H5g', start: 326,  title: 'Brahms — Concerto n. 1' },
-    { id: '7T4z6MI4hkU', start: 0,    title: 'Mozart — Aria da Don Giovanni' },
-    { id: '-ySDS5dsXSw', start: 5,    title: 'Mozart — Ouverture, Le nozze di Figaro' }
+    {
+      id: 'c33q87s03h4',
+      start: 1554,
+      title: 'Rachmaninov — Concerto n. 2'
+    },
+    {
+      id: 'kYJ7w4V67pQ',
+      start: 45,
+      title: 'Čajkovskij — Concerto n. 1'
+    },
+    {
+      id: 'k5q4Gf54n1I',
+      start: 35,
+      title: 'Rachmaninov — Concerto n. 3'
+    },
+    {
+      id: 'wX-yUaJ9H5g',
+      start: 326,
+      title: 'Brahms — Concerto n. 1'
+    },
+    {
+      id: '7T4z6MI4hkU',
+      start: 0,
+      title: 'Mozart — Aria da Don Giovanni'
+    },
+    {
+      id: '-ySDS5dsXSw',
+      start: 5,
+      title: 'Mozart — Ouverture, Le nozze di Figaro'
+    }
   ];
 
   const audioFrame = document.getElementById('hiddenAudioFrame');
-  const npBar = document.getElementById('nowPlayingBar');
-  const npLabel = document.getElementById('npLabel');
-  const npClose = document.getElementById('npClose');
-  const npOpen = document.getElementById('npOpen');
-  const allNotes = document.querySelectorAll('.hidden-note');
-  let activeNoteEl = null;
+  const nowPlayingBar = document.getElementById('nowPlayingBar');
+  const nowPlayingLabel = document.getElementById('npLabel');
+  const nowPlayingClose = document.getElementById('npClose');
+  const nowPlayingOpen = document.getElementById('npOpen');
+  const hiddenNotes = document.querySelectorAll('.hidden-note');
 
-  function stopHiddenTrack() {
-    audioFrame.src = '';
-    npBar.classList.remove('show');
-    if (activeNoteEl) {
-      activeNoteEl.classList.remove('playing');
-      activeNoteEl = null;
+  let activeNoteElement = null;
+
+  const stopHiddenTrack = () => {
+    if (audioFrame) {
+      audioFrame.src = '';
     }
-  }
 
-  function playHiddenTrack(track, noteEl) {
-    if (activeNoteEl) activeNoteEl.classList.remove('playing');
-    
-    // Construct YouTube embed URL
-    audioFrame.src = `https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&start=${track.start}`;
-    npLabel.textContent = track.title;
-    
-    if (npOpen) {
-      npOpen.href = `https://www.youtube.com/watch?v=${track.id}&t=${track.start}s`;
+    if (nowPlayingBar) {
+      nowPlayingBar.classList.remove('show');
     }
-    
-    npBar.classList.add('show');
-    noteEl.classList.add('playing');
-    activeNoteEl = noteEl;
-  }
 
-  allNotes.forEach(el => {
-    const idx = parseInt(el.getAttribute('data-track'), 10);
-    const track = HIDDEN_TRACKS[idx];
-    if (!track) return;
-    
-    const trigger = () => {
-      if (activeNoteEl === el) {
+    if (activeNoteElement) {
+      activeNoteElement.classList.remove('playing');
+      activeNoteElement = null;
+    }
+  };
+
+  const playHiddenTrack = (track, noteElement) => {
+    if (!audioFrame || !nowPlayingBar || !nowPlayingLabel) {
+      return;
+    }
+
+    if (activeNoteElement) {
+      activeNoteElement.classList.remove('playing');
+    }
+
+    audioFrame.src =
+      `https://www.youtube-nocookie.com/embed/${track.id}` +
+      `?autoplay=1&start=${track.start}`;
+
+    nowPlayingLabel.textContent = track.title;
+
+    if (nowPlayingOpen) {
+      nowPlayingOpen.href =
+        `https://www.youtube.com/watch?v=${track.id}` +
+        `&t=${track.start}s`;
+    }
+
+    nowPlayingBar.classList.add('show');
+    noteElement.classList.add('playing');
+
+    activeNoteElement = noteElement;
+  };
+
+  hiddenNotes.forEach(noteElement => {
+    const trackIndex = Number.parseInt(
+      noteElement.getAttribute('data-track') || '',
+      10
+    );
+
+    const track = HIDDEN_TRACKS[trackIndex];
+
+    if (!track) {
+      return;
+    }
+
+    const triggerTrack = () => {
+      if (activeNoteElement === noteElement) {
         stopHiddenTrack();
-      } else {
-        playHiddenTrack(track, el);
+        return;
       }
+
+      playHiddenTrack(track, noteElement);
     };
-    
-    el.addEventListener('click', trigger);
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        trigger();
+
+    noteElement.addEventListener('click', triggerTrack);
+
+    noteElement.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
       }
+
+      event.preventDefault();
+      triggerTrack();
     });
   });
 
-  if (npClose) {
-    npClose.addEventListener('click', stopHiddenTrack);
+  if (nowPlayingClose) {
+    nowPlayingClose.addEventListener(
+      'click',
+      stopHiddenTrack
+    );
   }
 
-  // --- YouTube Facade ---
-  const ytFacade = document.getElementById('yt-facade');
-  if (ytFacade) {
-    ytFacade.addEventListener('click', () => {
-      const vid = ytFacade.getAttribute('data-vid');
-      const start = ytFacade.getAttribute('data-start') || 0;
+  // ---------------------------------------------------------------------------
+  // YouTube facade
+  // ---------------------------------------------------------------------------
+
+  const youtubeFacade = document.getElementById('yt-facade');
+
+  if (youtubeFacade) {
+    youtubeFacade.addEventListener('click', () => {
+      // Prevent duplicate iframe creation after the facade has been replaced.
+      if (youtubeFacade.querySelector('iframe')) {
+        return;
+      }
+
+      const videoId =
+        youtubeFacade.getAttribute('data-vid');
+
+      const startTime =
+        youtubeFacade.getAttribute('data-start') || '0';
+
+      if (!videoId) {
+        return;
+      }
+
       const iframe = document.createElement('iframe');
+
       iframe.setAttribute('width', '100%');
       iframe.setAttribute('height', '100%');
-      iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&start=${start}`);
-      iframe.setAttribute('title', 'YouTube video player');
+
+      iframe.setAttribute(
+        'src',
+        `https://www.youtube-nocookie.com/embed/${videoId}` +
+        `?autoplay=1&start=${startTime}`
+      );
+
+      iframe.setAttribute(
+        'title',
+        'YouTube video player'
+      );
+
       iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; autoplay; clipboard-write; ' +
+        'encrypted-media; gyroscope; picture-in-picture'
+      );
+
       iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-      
-      ytFacade.innerHTML = '';
-      ytFacade.appendChild(iframe);
-      ytFacade.style.cursor = 'default';
+
+      iframe.setAttribute(
+        'referrerpolicy',
+        'strict-origin-when-cross-origin'
+      );
+
+      youtubeFacade.innerHTML = '';
+      youtubeFacade.appendChild(iframe);
+      youtubeFacade.style.cursor = 'default';
     });
   }
 });
