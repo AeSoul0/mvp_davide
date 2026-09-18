@@ -827,7 +827,6 @@ nav.scrolled {
   padding: 12px 16px 12px 12px;
   border-radius: 8px;
   background: rgba(17, 31, 50, 0.95);
-  border-top: 1px solid var(--brass); border-bottom: 1px solid var(--brass); padding: 64px 0;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
