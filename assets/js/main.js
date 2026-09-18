@@ -53,9 +53,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      if (!mobileMenu.classList.contains('open')) return;
+
+      if (e.key === 'Escape') {
         toggleMenu();
         mobileMenuBtn.focus();
+      } else if (e.key === 'Tab') {
+        const focusable = mobileMenu.querySelectorAll('a[href], button');
+        const first = mobileMenuBtn;
+        const last = focusable.length ? focusable[focusable.length - 1] : first;
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     });
   }
@@ -152,5 +170,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (npClose) {
     npClose.addEventListener('click', stopHiddenTrack);
+  }
+
+  // --- YouTube Facade ---
+  const ytFacade = document.getElementById('yt-facade');
+  if (ytFacade) {
+    ytFacade.addEventListener('click', () => {
+      const vid = ytFacade.getAttribute('data-vid');
+      const start = ytFacade.getAttribute('data-start') || 0;
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('width', '100%');
+      iframe.setAttribute('height', '100%');
+      iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&start=${start}`);
+      iframe.setAttribute('title', 'YouTube video player');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      
+      ytFacade.innerHTML = '';
+      ytFacade.appendChild(iframe);
+      ytFacade.style.cursor = 'default';
+    });
   }
 });
