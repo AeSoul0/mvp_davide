@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Hidden Notes (Easter Egg) ---
   const HIDDEN_TRACKS = [
-    { id: 'l4zkc7KEvYM', start: 1554, title: 'Rachmaninov — Concerto n. 2' },
-    { id: 'ItSJ_woWnmk', start: 45,   title: 'Čajkovskij — Concerto n. 1' },
-    { id: 'MOOfoW5_2iE', start: 35,   title: 'Rachmaninov — Concerto n. 3' },
-    { id: 'mNcQGsF2uIw', start: 326,  title: 'Brahms — Concerto n. 1' },
+    { id: 'c33q87s03h4', start: 1554, title: 'Rachmaninov — Concerto n. 2' },
+    { id: 'kYJ7w4V67pQ', start: 45,   title: 'Čajkovskij — Concerto n. 1' },
+    { id: 'k5q4Gf54n1I', start: 35,   title: 'Rachmaninov — Concerto n. 3' },
+    { id: 'wX-yUaJ9H5g', start: 326,  title: 'Brahms — Concerto n. 1' },
     { id: '7T4z6MI4hkU', start: 0,    title: 'Mozart — Aria da Don Giovanni' },
     { id: '-ySDS5dsXSw', start: 5,    title: 'Mozart — Ouverture, Le nozze di Figaro' }
   ];
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeNoteEl) activeNoteEl.classList.remove('playing');
     
     // Construct YouTube embed URL
-    audioFrame.src = `https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&start=${track.start}&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1`;
+    audioFrame.src = `https://www.youtube.com/embed/${track.id}?autoplay=1&start=${track.start}`;
     npLabel.textContent = track.title;
     
     if (npOpen) {
