@@ -65,6 +65,8 @@ Poiché il sito sfrutta YouTube e policy restrittive, **non aprire `index.html` 
 ├── package.json            # Dipendenze e script (npm run build/check)
 ├── robots.txt              # Indicizzazione bot
 ├── sitemap.xml             # Sitemap per SEO
+├── favicon.ico             # Favicon base
+├── apple-touch-icon.png    # Icona per dispositivi Apple
 ├── .gitignore              # Regole di esclusione e security (secrets)
 ├── index.html              # OUTPUT GENERATO (non modificare)
 └── README.md
