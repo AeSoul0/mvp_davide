@@ -7,9 +7,10 @@ const path = require('path');
 
 console.log('Building index.html...');
 
-const srcIndex = path.join(__dirname, 'src', 'index.html');
-const componentsDir = path.join(__dirname, 'src', 'components');
-const destIndex = path.join(__dirname, 'index.html');
+const rootDir = path.join(__dirname, '..');
+const srcIndex = path.join(rootDir, 'src', 'index.html');
+const componentsDir = path.join(rootDir, 'src', 'components');
+const destIndex = path.join(rootDir, 'index.html');
 
 let content = fs.readFileSync(srcIndex, 'utf8');
 

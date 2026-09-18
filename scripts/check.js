@@ -18,7 +18,7 @@ console.log('Running site checks...');
 let errors = 0;
 
 requiredFiles.forEach(file => {
-  if (!fs.existsSync(path.join(__dirname, file))) {
+  if (!fs.existsSync(path.join(__dirname, '..', file))) {
     // Note: favicon.ico is explicitly allowed to be missing here if not created yet, 
     // but the user's checklist specifies it. We'll warn on favicon instead of fail.
     if (file === 'favicon.ico') {
