@@ -780,7 +780,7 @@ nav.scrolled {
 }
 .footer-signature a {
   font-weight: 700;
-  color: #ff6f59; /* L'arancione / coral accent */
+  color: var(--brass);
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
@@ -1048,3 +1048,5 @@ nav.scrolled {
   background-color: #ff0000;
 }
 
+
+#contatti { border-top: 1px solid var(--rule); }
