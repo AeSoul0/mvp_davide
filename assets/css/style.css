@@ -780,10 +780,7 @@ nav.scrolled {
 }
 .footer-signature a {
   font-weight: 700;
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(to right, #22d3ee, #3b82f6);
+  color: #ff6f59; /* L'arancione / coral accent */
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
