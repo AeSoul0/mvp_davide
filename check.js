@@ -11,7 +11,7 @@ const requiredFiles = [
   'robots.txt',
   'sitemap.xml',
   '_headers',
-  'favicon.ico' // Assuming they'll add it or it exists
+  'assets/images/favicon.ico' // Assuming they'll add it or it exists
 ];
 
 console.log('Running site checks...');
