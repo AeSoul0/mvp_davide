@@ -1,3 +1,12 @@
+<!--
+  @file src/index.html
+  @description Main homepage and Master Layout for Davide Lombardi - Pianist.
+  Serves as the entry point for the custom build system to assemble components.
+-->
+<!--
+  @file src/components/head.html
+  @description HTML Head element with SEO metadata, fonts, and CSS links.
+-->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -5,315 +14,389 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Davide Lombardi — Pianista</title>
 <meta name="description" content="Davide Lombardi, pianista. Formazione al Conservatorio Santa Cecilia di Roma, attività concertistica e lezioni di pianoforte, teoria e storia della musica.">
+<meta property="og:title" content="Davide Lombardi — Pianista">
+<meta property="og:description" content="Sito ufficiale di Davide Lombardi, pianista basato a Roma. Scopri il profilo, la formazione, l'attività concertistica e ascolta le performance.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://davidelombardipianoforte.biz/">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Davide Lombardi",
+  "jobTitle": "Pianista",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Roma",
+    "addressCountry": "IT"
+  },
+  "url": "https://davidelombardipianoforte.biz",
+  "sameAs": [
+    "https://www.youtube.com/@davidelombardi1827",
+    "https://www.instagram.com/davide_.lombardi/",
+    "https://www.tiktok.com/@davide_.lombardi"
+  ]
+}
+</script>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="brand-mark">DL</span>Davide Lombardi</div>
-    <div class="navlinks">
+<!--
+  @file src/components/nav.html
+  @description Navigation elements including desktop navbar and fullscreen mobile menu.
+-->
+<!-- Desktop and mobile navbar -->
+<nav id="navbar">
+  <div class="nav-wrap">
+    <a href="#" class="brand">DAVIDE LOMBARDI</a>
+    <div class="nav-links desktop-only">
+      <a href="#music">Musica</a>
       <a href="#profilo">Profilo</a>
       <a href="#esperienze">Esperienze</a>
       <a href="#formazione">Formazione</a>
-      <a href="#social">Social</a>
-      <a href="#contatti">Contatti</a>
+      <a href="#contatti" class="btn-outline">Contatti</a>
     </div>
+    <button class="mobile-menu-btn mobile-only" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
-
-<header class="hero">
-  <div class="hero-video">
-    <video src="assets/video/hero-chopin.mp4" autoplay muted loop playsinline tabindex="-1" aria-hidden="true"></video>
+<!-- Fullscreen mobile menu -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <a href="#music" class="mobile-link">Musica</a>
+    <a href="#profilo" class="mobile-link">Profilo</a>
+    <a href="#esperienze" class="mobile-link">Esperienze</a>
+    <a href="#formazione" class="mobile-link">Formazione</a>
+    <a href="#contatti" class="mobile-link">Contatti</a>
+    <div class="mobile-socials">
+      <a href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/davide_.lombardi/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@davide_.lombardi" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.04.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.57-.42 3.1-1.23 4.41-1.4 2.27-3.9 3.65-6.57 3.8-2.69.15-5.38-.85-7.14-2.83C.11 18.91-.32 16.3.2 13.78c.47-2.3 2.1-4.22 4.2-5.18 1.15-.52 2.42-.76 3.69-.74v4.06c-1.04-.15-2.14.07-2.98.7-.93.69-1.49 1.76-1.55 2.91-.07 1.12.37 2.21 1.17 3.03.88.9 2.1 1.34 3.34 1.25 1.45-.11 2.74-1.05 3.23-2.38.31-.83.39-1.74.37-2.63V.02h.85z"/></svg>
+      </a>
+    </div>
   </div>
-  <div class="wrap">
-    <div class="eyebrow">Roma</div>
-    <h1 class="name">Davide<br>Lombardi</h1>
-    <p class="role">Pianista</p>
-    <div class="hero-meta">
-      <span class="btn-pill tag">Biennio Specialistico, Conservatorio "Santa Cecilia"</span>
-      <a class="btn-pill btn-coral" href="mailto:lombardid363@gmail.com">Email</a>
-      <a class="btn-pill btn-coral" href="tel:+393510997639">+39 351 099 7639</a>
-      <a class="btn-pill btn-coral" href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener">YouTube</a>
+</div>
+<!--
+  @file src/components/hero.html
+  @description Hero header section with video background and main title.
+-->
+<header class="hero" id="home">
+  <div class="hero-video-wrapper">
+    <video src="assets/video/hero-chopin.mp4" autoplay muted loop playsinline tabindex="-1" aria-hidden="true"></video>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-bottom-left reveal">
+      <div class="hero-label">ROMA / PIANISTA</div>
+      <h1 class="hero-title">DAVIDE<br>LOMBARDI</h1>
+      <p class="hero-subtitle">Interprete, musicista e studioso della cultura musicale.</p>
     </div>
-
-    <div class="hero-like">
-      <button class="like-chip" id="likeBtn" type="button">
-        <svg class="like-icon" id="likeIcon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M32 6v22.6a8 8 0 1 0 4 6.94V14l-16 4v18.6a8 8 0 1 0 4 6.94V16l16-4V6l-4 1V6z" fill="currentColor"/>
-        </svg>
-        <span class="like-count" id="likeCount">—</span>
-        <span class="like-label">persone hanno gradito questo profilo</span>
-      </button>
+    <div class="hero-bottom-right reveal delay-1">
+      <div class="hero-actions">
+        <a href="#music" class="cta-primary">ASCOLTA</a>
+        <a href="#contatti" class="cta-secondary">CONTATTI</a>
+      </div>
     </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
   </div>
 </header>
 
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="profilo">
-  <span class="hidden-note" style="top:22px; right:8%; --r:-13deg;" data-track="0" data-title="Rachmaninov — Concerto n. 2" role="button" tabindex="0" aria-label="Nota nascosta: Rachmaninov — Concerto n. 2"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">01</span>
-      <h2>Profilo professionale</h2>
-    </div>
-    <div class="profilo-lines">
-      <p>Pianista ed esecutore con solida formazione accademica, didattica e multidisciplinare.</p>
-      <p>Attualmente iscritto al Biennio Specialistico del Conservatorio "Santa Cecilia" di Roma.</p>
-      <p>Affianca alla prassi esecutiva e all'esperienza concertistica una profonda preparazione storico-teorica e analitica.</p>
-      <p>Questa preparazione è maturata con la Laurea in Letteratura, Musica e Spettacolo alla Sapienza, con una tesi sulla retorica musicale nell'opera mozartiana, tra <em>Le nozze di Figaro</em> e <em>Don Giovanni</em>.</p>
-    </div>
-  </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="esperienze">
-  <span class="hidden-note" style="top:64px; left:6%; --r:15deg;" data-track="1" data-title="Čajkovskij — Concerto n. 1" role="button" tabindex="0" aria-label="Nota nascosta: Čajkovskij — Concerto n. 1"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head no-badge">
-      <h2>Esperienze</h2>
-    </div>
+<main>
+<!--
+  @file src/components/portfolio.html
+  @description Main portfolio sections: Music, Profile, and Selected Experiences.
+-->
+  <section id="music" class="section-padding">
+    <span class="hidden-note" style="top:5%; right:10%; --r:-15deg;" data-track="0" data-title="Rachmaninov — Concerto n. 2" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
     
-    <div class="exp-item reveal">
-      <div class="exp-media"><img src="assets/images/image_1.jpeg" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza"></div>
-      <div class="exp-text">
-        <div class="exp-num">01</div>
-        <h3 class="exp-title">La memoria delle cose</h3>
-        <div class="exp-where">Sapienza Università di Roma</div>
-        <p class="exp-desc">Performer pianistico in ensemble in un'esibizione tenuta in memoria del Prof. Antonio Rostagno.</p>
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Ascolta</h2>
+        <div class="section-line"></div>
       </div>
-    </div>
-    <div class="exp-item reveal reverse">
-      <div class="exp-media"><div class="exp-mosaic">
-          <img src="assets/images/image_extra_1.jpg" alt="Saluti finali del cast dello spettacolo Mahagonny Suite">
-          <img src="assets/images/image_2.jpeg" alt="Davide Lombardi in prima fila durante i saluti di Mahagonny Suite">
-          <img src="assets/images/image_extra2_1.jpg" alt="Scena dello spettacolo Mahagonny Suite">
-          <img src="assets/images/image_extra_2.jpg" alt="Davide Lombardi al pianoforte con un violinista durante Mahagonny Suite">
-        </div></div>
-      <div class="exp-text">
-        <div class="exp-num">02</div>
-        <h3 class="exp-title">Mahagonny Suite</h3>
-        <div class="exp-where">Nuovo Teatro Ateneo, Sapienza Università di Roma</div>
-        <p class="exp-desc">Pianista nell'allestimento e nella produzione dello spettacolo, in ensemble con gli altri esecutori.</p>
-      </div>
-    </div>
-    <div class="exp-item reveal">
-      <div class="exp-media"><div class="exp-mosaic">
-          <img src="assets/images/image_extra3_1.jpg" alt="Davide Lombardi con la corona d'alloro davanti alla Sapienza">
-          <img src="assets/images/image_3.jpeg" alt="Copertina della tesi di laurea di Davide Lombardi">
-        </div></div>
-      <div class="exp-text">
-        <div class="exp-num">03</div>
-        <h3 class="exp-title">Laurea in Letteratura, Musica e Spettacolo</h3>
-        <div class="exp-where">Sapienza Università di Roma</div>
-        <p class="exp-desc">Tesi: "Retorica musicale nell'opera mozartiana, tra Le nozze di Figaro e Don Giovanni".</p>
-      </div>
-    </div>
-    <div class="exp-item reveal reverse">
-      <div class="exp-media"><img src="assets/images/image_extra_3.jpg" alt="Davide Lombardi al pianoforte durante La Notte Nazionale dei Licei Classici"></div>
-      <div class="exp-text">
-        <div class="exp-num">04</div>
-        <h3 class="exp-title">"La Notte Nazionale dei Licei Classici"</h3>
-        <div class="exp-where">Liceo Classico "Giulio Cesare" — Roma</div>
-        <p class="exp-desc">Partecipazione come esecutore pianistico a due edizioni della rassegna.</p>
-      </div>
-    </div>
-    <div class="exp-item reveal">
-      <div class="exp-media"><img src="assets/images/image_4.jpeg" alt="Tasti di pianoforte consumati, simbolo del corso Improcomp"></div>
-      <div class="exp-text">
-        <div class="exp-num">05</div>
-        <h3 class="exp-title">Improcomp</h3>
-        <div class="exp-where">Corsi di Perfezionamento e Approfondimento Teorico di Alto Livello (2024)</div>
-        <p class="exp-desc">Focus su teoria avanzata, composizione e improvvisazione.</p>
-      </div>
-    </div>
-    <div class="exp-item reveal reverse text-only">
       
-      <div class="exp-text">
-        <div class="exp-num">06</div>
-        <h3 class="exp-title">Ensemble — M° Claudio Perugini</h3>
-        <div class="exp-where">Accademia Musicale Praeneste — Roma</div>
-        <p class="exp-desc">Pratica cameristica e d'insieme sotto la guida del M° Claudio Perugini.</p>
+      <div class="music-layout">
+        <div class="music-player reveal">
+          <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/n3pB6_0y5rY?rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="music-info reveal delay-1">
+          <div class="music-tag">IN EVIDENZA</div>
+          <h3 class="music-title">Čajkovskij — Concerto n. 1</h3>
+          <p class="music-desc">Un estratto dalle performance in repertorio, in cui la profondità del suono si fonde con il rigore analitico e la prassi esecutiva.</p>
+          <a href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener" class="text-link">Esplora il canale YouTube &rarr;</a>
+        </div>
       </div>
     </div>
-    <div class="exp-item reveal text-only">
-      
-      <div class="exp-text">
-        <div class="exp-num">07</div>
-        <h3 class="exp-title">Coro — M° Alberto De Sanctis</h3>
-        <div class="exp-where">Accademia Musicale Praeneste — Roma</div>
-        <p class="exp-desc">Attività corale sotto la direzione del M° Alberto De Sanctis.</p>
+  </section>
+  <section id="profilo" class="section-padding bg-surface">
+    <div class="container">
+      <div class="profile-layout">
+        <div class="profile-quote reveal">
+          <h2>“Pianista ed esecutore con solida formazione accademica, didattica e multidisciplinare.”</h2>
+        </div>
+        <div class="profile-text reveal delay-1">
+          <p>Attualmente iscritto al Biennio Specialistico del Conservatorio "Santa Cecilia" di Roma, Davide affianca alla prassi esecutiva e all'esperienza concertistica una profonda preparazione storico-teorica e analitica.</p>
+          <p>La sua identità musicale è maturata anche attraverso la Laurea in Letteratura, Musica e Spettacolo alla Sapienza, culminata in una tesi sulla retorica musicale nell'opera mozartiana (tra <em>Le nozze di Figaro</em> e <em>Don Giovanni</em>), definendo un approccio che unisce istinto interpretativo e indagine intellettuale.</p>
+        </div>
       </div>
     </div>
-    <div class="exp-item reveal reverse">
-      <div class="exp-media"><img src="assets/images/image_extra2_2.jpg" alt="Davide Lombardi al pianoforte a coda durante un recital pubblico all'Accademia Musicale Praeneste"></div>
-      <div class="exp-text">
-        <div class="exp-num">08</div>
-        <h3 class="exp-title">Recital pubblici</h3>
-        <div class="exp-where">Auditorium, Accademia Musicale Praeneste — Roma</div>
-        <p class="exp-desc">Esibizioni pianistiche in pubblico nell'ambito della programmazione dell'Accademia.</p>
+  </section>
+<svg class="staff-divider" viewBox="0 0 1000 26" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="0" y1="4" x2="1000" y2="4"/><line x1="0" y1="9" x2="1000" y2="9"/><line x1="0" y1="14" x2="1000" y2="14"/><line x1="0" y1="19" x2="1000" y2="19"/><line x1="0" y1="24" x2="1000" y2="24"/>
+  </svg>
+  <section id="esperienze" class="section-padding">
+    <span class="hidden-note" style="top:15%; left:5%; --r:25deg;" data-track="1" data-title="Čajkovskij — Concerto n. 1" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Live / Esperienze Selezionate</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="experiences-list">
+                <div class="experience-row reveal">
+          <div class="experience-image">
+            <img src="assets/images/image_1.jpeg" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza" loading="lazy">
+          </div>
+          <div class="experience-content">
+            <div class="exp-meta">SAPIENZA UNIVERSITÀ DI ROMA</div>
+            <h3 class="exp-title">La memoria delle cose</h3>
+            <p class="exp-desc">Performer pianistico in ensemble in un'esibizione tenuta in memoria del Prof. Antonio Rostagno. Un momento di profondo raccoglimento musicale e istituzionale.</p>
+          </div>
+        </div>
+
+                <div class="experience-row reverse reveal">
+          <div class="experience-image">
+            <img src="assets/images/image_extra_1.jpg" alt="Saluti finali del cast dello spettacolo Mahagonny Suite" loading="lazy">
+          </div>
+          <div class="experience-content">
+            <div class="exp-meta">NUOVO TEATRO ATENEO</div>
+            <h3 class="exp-title">Mahagonny Suite</h3>
+            <p class="exp-desc">Pianista nell'allestimento e nella produzione dello spettacolo teatrale-musicale, collaborando in ensemble con gli altri esecutori in scena per una performance multidisciplinare.</p>
+          </div>
+        </div>
+
+                <div class="experience-row reveal">
+          <div class="experience-image">
+            <img src="assets/images/image_extra2_2.jpg" alt="Recital pubblico" loading="lazy">
+          </div>
+          <div class="experience-content">
+            <div class="exp-meta">ACCADEMIA MUSICALE PRAENESTE</div>
+            <h3 class="exp-title">Recital Pubblici</h3>
+            <p class="exp-desc">Esibizioni pianistiche in pubblico nell'ambito della programmazione dell'Accademia, esplorando repertori solistici e affrontando la prassi del recital dal vivo.</p>
+          </div>
+        </div>
+
+                <div class="experience-row reverse reveal">
+          <div class="experience-image">
+            <img src="assets/images/image_extra_3.jpg" alt="Notte Nazionale dei Licei Classici" loading="lazy">
+          </div>
+          <div class="experience-content">
+            <div class="exp-meta">LICEO CLASSICO "GIULIO CESARE"</div>
+            <h3 class="exp-title">Notte Nazionale dei Licei Classici</h3>
+            <p class="exp-desc">Partecipazione come esecutore pianistico a due edizioni della rassegna, unendo la dimensione musicale alla valorizzazione della cultura umanistica e classica.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="exp-item reveal text-only">
-      
-      <div class="exp-text">
-        <div class="exp-num">09</div>
-        <h3 class="exp-title">Bibliotecario</h3>
-        <div class="exp-where">Accademia Musicale Praeneste — Roma</div>
-        <p class="exp-desc">Gestione dell'archivio musicale e del catalogo librario dell'Accademia.</p>
+  </section>
+  <section id="gallery" class="gallery-section reveal">
+    <div class="gallery-grid">
+      <img src="assets/images/image_extra2_1.jpg" alt="Scena spettacolo" class="gallery-img g-tall" loading="lazy">
+      <img src="assets/images/image_3.jpeg" alt="Tesi di laurea" class="gallery-img" loading="lazy">
+      <img src="assets/images/image_extra_2.jpg" alt="Ensemble" class="gallery-img g-wide" loading="lazy">
+      <img src="assets/images/image_2.jpeg" alt="In platea" class="gallery-img" loading="lazy">
+    </div>
+  </section>
+<!--
+  @file src/components/resume.html
+  @description Resume and background sections: Education, Research, Skills, and About.
+-->
+  <section id="formazione" class="section-padding bg-surface">
+    <span class="hidden-note" style="bottom:10%; right:8%; --r:-10deg;" data-track="4" data-title="Mozart — Aria da Don Giovanni" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Formazione</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-meta">IN CORSO</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Biennio Specialistico di II Livello in Pianoforte</h3>
+            <p class="timeline-where">Conservatorio di Musica "Santa Cecilia" — Roma</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item reveal">
+          <div class="timeline-meta">LAUREA</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Letteratura, Musica e Spettacolo</h3>
+            <p class="timeline-where">Sapienza Università di Roma</p>
+            <p class="timeline-desc">Tesi: "Retorica musicale nell'opera mozartiana, tra <em>Le nozze di Figaro</em> e <em>Don Giovanni</em>".</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item reveal">
+          <div class="timeline-meta">DIPLOMA</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Licenza di Teoria, Solfeggio e Dettato Musicale</h3>
+            <p class="timeline-where">Conservatorio di Musica "Alfredo Casella" — L'Aquila</p>
+            <p class="timeline-desc">Conseguita con il massimo dei voti.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-meta">FORMAZIONE</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Studi Pianistici e Formazione Musicale</h3>
+            <p class="timeline-where">Accademia Musicale Praeneste — Roma</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="exp-item reveal reverse">
-      <div class="exp-media"><img src="assets/images/image_5.jpeg" alt="Davide Lombardi da bambino al pianoforte con l'insegnante accanto"></div>
-      <div class="exp-text">
-        <div class="exp-num">10</div>
-        <h3 class="exp-title">Gli inizi</h3>
-        <div class="exp-where">Accademia Musicale Praeneste — Roma</div>
-        <p class="exp-desc">I primi studi pianistici, punto di partenza del percorso musicale.</p>
+  </section>
+  <section id="approfondimenti" class="section-padding">
+    <div class="container">
+      <div class="research-layout reveal">
+        <div class="research-title">
+          <h2>Approfondimenti<br>e Masterclass</h2>
+        </div>
+        <div class="research-content">
+          <div class="research-item">
+            <h4>Improcomp (2024)</h4>
+            <p>Corsi di Perfezionamento e Approfondimento Teorico di Alto Livello, con focus su teoria avanzata, composizione e improvvisazione.</p>
+          </div>
+          <div class="research-item">
+            <h4>M° Piero Rattalino</h4>
+            <p>Masterclass e corsi teorici presso l'Accademia Musicale Praeneste, approfondendo la storia dell'interpretazione pianistica, l'analisi e la critica musicale.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="competenze" class="section-padding bg-surface">
+    <div class="container">
+      <div class="skills-typography reveal">
+        <div class="skill-category">
+          <h3 class="skill-head">PERFORMANCE</h3>
+          <div class="skill-list">Pianoforte solista &middot; Musica da camera &middot; Ensemble &middot; Accompagnamento</div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-head">DIDATTICA</h3>
+          <div class="skill-list">Pianoforte &middot; Teoria &middot; Solfeggio &middot; Storia della musica</div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-head">RICERCA</h3>
+          <div class="skill-list">Analisi musicale &middot; Retorica musicale &middot; Storia dell'interpretazione &middot; Attività di biblioteca</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="about" class="section-padding">
+    <span class="hidden-note" style="top:50%; left:10%; --r:12deg;" data-track="5" data-title="Mozart — Ouverture, Le nozze di Figaro" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-image reveal">
+          <img src="assets/images/image_5.jpeg" alt="Davide Lombardi da bambino al pianoforte" loading="lazy">
+        </div>
+        <div class="about-text reveal delay-1">
+          <h2>Gli Inizi</h2>
+          <p>Un percorso musicale iniziato fin da giovanissimo presso l'Accademia Musicale Praeneste di Roma. I primi studi pianistici hanno segnato l'avvio di una ricerca continua sul suono e sul repertorio, evolvendosi nel tempo attraverso la pratica concertistica corale e d'insieme sotto la guida di docenti come il M° Claudio Perugini e il M° Alberto De Sanctis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--
+  @file src/components/footer.html
+  @description Bottom sections of the site: Social banner, Contact, Site Footer, and Scripts.
+-->
+  <section id="social" class="social-banner reveal">
+    <div class="container">
+      <div class="social-banner-inner">
+        <span class="social-label">RESTA IN CONTATTO</span>
+        <div class="social-links">
+          <a href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/davide_.lombardi/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@davide_.lombardi" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.04.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.57-.42 3.1-1.23 4.41-1.4 2.27-3.9 3.65-6.57 3.8-2.69.15-5.38-.85-7.14-2.83C.11 18.91-.32 16.3.2 13.78c.47-2.3 2.1-4.22 4.2-5.18 1.15-.52 2.42-.76 3.69-.74v4.06c-1.04-.15-2.14.07-2.98.7-.93.69-1.49 1.76-1.55 2.91-.07 1.12.37 2.21 1.17 3.03.88.9 2.1 1.34 3.34 1.25 1.45-.11 2.74-1.05 3.23-2.38.31-.83.39-1.74.37-2.63V.02h.85z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contatti" class="section-padding contact-section">
+    <div class="container">
+      <div class="contact-layout reveal">
+        <div class="contact-text">
+          <h2>Parliamo di musica.</h2>
+          <p>Per concerti, collaborazioni e lezioni.</p>
+        </div>
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="c-label">EMAIL</span>
+            <a href="mailto:lombardid363@gmail.com" class="c-value">lombardid363@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="c-label">TELEFONO</span>
+            <a href="tel:+393510997639" class="c-value">+39 351 099 7639</a>
+          </div>
+          <div class="contact-item">
+            <span class="c-label">CITTÀ</span>
+            <span class="c-value">Roma (RM)</span>
+          </div>
+          <div class="contact-actions">
+            <a href="mailto:lombardid363@gmail.com" class="cta-primary">SCRIVI A DAVIDE</a>
+            <a href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener" class="cta-secondary">YOUTUBE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">DAVIDE LOMBARDI</div>
+      <div class="footer-copy">
+        &copy; <span id="year"></span> — Pianista, Roma
+        <span class="footer-signature">
+          • Developed by <a href="https://github.com/AeSoul0" target="_blank" rel="noopener">ÆSoul</a>
+        </span>
       </div>
     </div>
   </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="formazione">
-  <span class="hidden-note" style="top:20px; left:7%; --r:11deg;" data-track="5" data-title="Mozart — Ouverture, Le nozze di Figaro" role="button" tabindex="0" aria-label="Nota nascosta: Mozart — Ouverture, Le nozze di Figaro"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">02</span>
-      <h2>Formazione musicale e accademica</h2>
-    </div>
-    <div class="entries">
-      <div class="entry"><div class="entry-when">In corso</div><div class="entry-body"><div class="entry-title">Biennio Specialistico di II Livello in Pianoforte</div><div class="entry-where">Conservatorio di Musica "Santa Cecilia" — Roma</div></div></div>
-      <div class="entry"><div class="entry-when">Laurea</div><div class="entry-body"><div class="entry-title">Laurea Triennale in Letteratura, Musica e Spettacolo</div><div class="entry-where">Sapienza Università di Roma</div><div class="entry-desc">Tesi: "Retorica musicale nell'opera mozartiana, tra Le nozze di Figaro e Don Giovanni".</div></div></div>
-      <div class="entry"><div class="entry-when">Diploma</div><div class="entry-body"><div class="entry-title">Licenza di Teoria, Solfeggio e Dettato Musicale</div><div class="entry-where">Conservatorio di Musica "Alfredo Casella" — L'Aquila</div><div class="entry-desc">Conseguita con il massimo dei voti.</div></div></div>
-      <div class="entry"><div class="entry-when">Formazione</div><div class="entry-body"><div class="entry-title">Studi Pianistici e Formazione Musicale</div><div class="entry-where">Accademia Musicale Praeneste — Roma</div></div></div>
-      <div class="entry"><div class="entry-when">Diploma</div><div class="entry-body"><div class="entry-title">Maturità Classica</div><div class="entry-where">Liceo Classico "Giulio Cesare" — Roma</div></div></div>
-      <div class="entry"><div class="entry-when">Ruolo</div><div class="entry-body"><div class="entry-title">Bibliotecario</div><div class="entry-where">Accademia Musicale Praeneste — Roma</div><div class="entry-desc">Gestione dell'archivio musicale e del catalogo librario dell'Accademia.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="masterclass">
-  <span class="hidden-note" style="top:18px; right:9%; --r:8deg;" data-track="2" data-title="Rachmaninov — Concerto n. 3" role="button" tabindex="0" aria-label="Nota nascosta: Rachmaninov — Concerto n. 3"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">03</span>
-      <h2>Masterclass e perfezionamento</h2>
-    </div>
-    <div class="entries">
-      <div class="entry"><div class="entry-when">2024</div><div class="entry-body"><div class="entry-title">Corsi di Perfezionamento e Approfondimento Teorico di Alto Livello</div><div class="entry-where">Improcomp</div><div class="entry-desc">Focus su teoria avanzata, composizione e improvvisazione.</div></div></div>
-      <div class="entry"><div class="entry-when">Privati &amp; gruppo</div><div class="entry-body"><div class="entry-title">Masterclass e corsi teorici con il M° Piero Rattalino</div><div class="entry-where">Accademia Musicale Praeneste</div><div class="entry-desc">Approfondimento sulla storia dell'interpretazione pianistica, analisi e critica musicale.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="concerti">
-  <span class="hidden-note" style="bottom:28px; right:8%; --r:-10deg;" data-track="3" data-title="Brahms — Concerto n. 1" role="button" tabindex="0" aria-label="Nota nascosta: Brahms — Concerto n. 1"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">04</span>
-      <h2>Attività concertistica</h2>
-    </div>
-    <div class="entries">
-      <div class="entry"><div class="entry-when">Spettacolo</div><div class="entry-body"><div class="entry-title">Esecutore in ensemble — "Mahagonny Suite"</div><div class="entry-where">Nuovo Teatro Ateneo, Sapienza Università di Roma</div><div class="entry-desc">Pianista nell'allestimento e nella produzione dello spettacolo.</div></div></div>
-      <div class="entry"><div class="entry-when">Evento</div><div class="entry-body"><div class="entry-title">Performer pianistico in ensemble — "La memoria delle cose"</div><div class="entry-where">Sapienza Università di Roma</div><div class="entry-desc">Esibizione in memoria del Prof. Antonio Rostagno.</div></div></div>
-      <div class="entry"><div class="entry-when">Repertorio</div><div class="entry-body"><div class="entry-title">Musica da camera ed ensemble</div><div class="entry-where">Sotto la guida del M° Claudio Perugini, Accademia Musicale Praeneste</div></div></div>
-      <div class="entry"><div class="entry-when">Coro</div><div class="entry-body"><div class="entry-title">Attività corale</div><div class="entry-where">Sotto la direzione del M° Alberto De Sanctis, Accademia Musicale Praeneste</div></div></div>
-      <div class="entry"><div class="entry-when">Recital</div><div class="entry-body"><div class="entry-title">Recital pubblici</div><div class="entry-where">Auditorium, Accademia Musicale Praeneste — Roma</div></div></div>
-      <div class="entry"><div class="entry-when">Collaborazioni</div><div class="entry-body"><div class="entry-title">Accompagnamento pianistico</div><div class="entry-desc">Per cantanti lirici e strumentisti, in particolare violinisti, in lezioni, esami ed esibizioni dal vivo.</div></div></div>
-      <div class="entry"><div class="entry-when">Due edizioni</div><div class="entry-body"><div class="entry-title">"La Notte Nazionale dei Licei Classici"</div><div class="entry-where">Liceo Classico "Giulio Cesare" — Roma</div></div></div>
-      <div class="entry"><div class="entry-when">Collaborazione</div><div class="entry-body"><div class="entry-title">Girapagine ufficiale</div><div class="entry-desc">Durante il concerto del M° Jacopo Feresin.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="insegnamento">
-  <span class="hidden-note" style="top:16px; left:8%; --r:-9deg;" data-track="2" data-title="Rachmaninov — Concerto n. 3" role="button" tabindex="0" aria-label="Nota nascosta: Rachmaninov — Concerto n. 3"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">05</span>
-      <h2>Insegnamento e competenze</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card reveal"><h3>Didattica della musica</h3><p>Insegnamento di teoria, solfeggio, pratica pianistica e storia della musica.</p></div>
-      <div class="skill-card reveal"><h3>Prassi esecutiva</h3><p>Pianoforte solista, musica da camera, ensemble strumentale e accompagnamento a prima vista per voci e strumenti.</p></div>
-      <div class="skill-card reveal"><h3>Competenze teorico-critiche</h3><p>Analisi formale e armonica, storia dell'interpretazione e critica musicale.</p></div>
-    </div>
-  </div>
-</section>
-
-<svg class="staff" viewBox="0 0 760 26" preserveAspectRatio="none" aria-hidden="true">
-  <line x1="0" y1="4" x2="760" y2="4"/><line x1="0" y1="9" x2="760" y2="9"/><line x1="0" y1="14" x2="760" y2="14"/><line x1="0" y1="19" x2="760" y2="19"/><line x1="0" y1="24" x2="760" y2="24"/>
-</svg>
-
-<section id="social">
-  <span class="hidden-note" style="top:18px; right:7%; --r:-14deg;" data-track="4" data-title="Mozart — Aria da Don Giovanni" role="button" tabindex="0" aria-label="Nota nascosta: Mozart — Aria da Don Giovanni"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">06</span>
-      <h2>Social</h2>
-    </div>
-    <div class="social-row">
-      <a class="btn-pill btn-coral" href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener">YouTube</a>
-      <a class="btn-pill btn-coral" href="https://www.instagram.com/davide_.lombardi/" target="_blank" rel="noopener">Instagram</a>
-      <a class="btn-pill btn-coral" href="https://www.tiktok.com/@davide_.lombardi" target="_blank" rel="noopener">TikTok</a>
-    </div>
-  </div>
-</section>
-
-<section id="contatti">
-  <span class="hidden-note" style="top:22px; left:8%; --r:9deg;" data-track="0" data-title="Rachmaninov — Concerto n. 2" role="button" tabindex="0" aria-label="Nota nascosta: Rachmaninov — Concerto n. 2"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">07</span>
-      <h2>Contatti</h2>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-item"><div class="contact-label">Email</div><div class="contact-value"><a class="btn-pill btn-coral" href="mailto:lombardid363@gmail.com">lombardid363@gmail.com</a></div></div>
-      <div class="contact-item"><div class="contact-label">Telefono</div><div class="contact-value"><a class="btn-pill btn-coral" href="tel:+393510997639">+39 351 099 7639</a></div></div>
-      <div class="contact-item"><div class="contact-label">Città</div><div class="contact-value"><span class="btn-pill tag">Roma (RM)</span></div></div>
-      <div class="contact-item"><div class="contact-label">YouTube</div><div class="contact-value"><a class="btn-pill btn-coral" href="https://www.youtube.com/@davidelombardi1827" target="_blank" rel="noopener">@davidelombardi1827</a></div></div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">© <span id="year"></span> Davide Lombardi</div>
 </footer>
-
-<script src="assets/js/main.js"></script>
-
 <div id="nowPlayingBar">
   <iframe id="hiddenAudioFrame" src="" allow="autoplay; encrypted-media; picture-in-picture" title="Player brano nascosto"></iframe>
   <span class="np-label" id="npLabel">In riproduzione</span>
-  <a class="np-open" id="npOpen" href="#" target="_blank" rel="noopener">Apri su YouTube</a>
+  <a class="np-open" id="npOpen" href="#" target="_blank" rel="noopener">YouTube</a>
   <button class="np-close" id="npClose" type="button" aria-label="Ferma la riproduzione">&times;</button>
 </div>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>

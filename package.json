@@ -1,0 +1,10 @@
+{
+  "name": "davide-lombardi-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio di Davide Lombardi",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "AeSoul",
+  "license": "ISC"
+}

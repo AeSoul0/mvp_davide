@@ -1,43 +1,82 @@
-  document.getElementById('year').textContent = new Date().getFullYear();
+/**
+ * @file assets/js/main.js
+ * @description Handles interactivity for Davide Lombardi's website.
+ * Includes mobile menu logic, scroll-triggered animations
+ * (Intersection Observer), and a musical Easter Egg ("Hidden Notes").
+ */
 
-  const LIKE_NAMESPACE = 'davidelombardipianoforte.biz';
-  const LIKE_KEY = 'profile-likes';
-  const likeCountEl = document.getElementById('likeCount');
-  const likeBtn = document.getElementById('likeBtn');
-  const likeIcon = document.getElementById('likeIcon');
+document.addEventListener('DOMContentLoaded', () => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
 
-  async function loadLikeCount(){
-    try{
-      const res = await fetch(`https://abacus.jasoncameron.dev/get/${LIKE_NAMESPACE}/${LIKE_KEY}`);
-      const data = await res.json();
-      likeCountEl.textContent = (data && typeof data.value === 'number') ? data.value : 0;
-    }catch(e){
-      likeCountEl.textContent = '—';
-    }
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
   }
 
-  if (likeBtn){
-    likeBtn.addEventListener('click', async () => {
-      likeBtn.disabled = true;
-      try{
-        const res = await fetch(`https://abacus.jasoncameron.dev/hit/${LIKE_NAMESPACE}/${LIKE_KEY}`);
-        const data = await res.json();
-        if (data && typeof data.value === 'number'){
-          likeCountEl.textContent = data.value;
+  // --- Navbar Scroll Effect ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // --- Mobile Menu ---
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (mobileMenuBtn && mobileMenu) {
+    const toggleMenu = () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenuBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    };
+
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) {
+          toggleMenu();
         }
-        likeIcon.classList.remove('pulse');
-        void likeIcon.offsetWidth;
-        likeIcon.classList.add('pulse');
-      }catch(e){
-        /* silent fail, count just won't update */
-      }finally{
-        likeBtn.disabled = false;
-      }
+      });
     });
   }
 
-  loadLikeCount();
+  // --- Intersection Observer for Animations ---
+  // Adds the .in-view class to elements with .reveal when they enter the viewport
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && revealEls.length > 0) {
+    const observerOptions = {
+      root: null, // use the viewport as container
+      rootMargin: '0px 0px -10% 0px', // trigger animation slightly before fully in view
+      threshold: 0.1
+    };
 
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target); // Stop observing once animated (performance optimization)
+        }
+      });
+    }, observerOptions);
+
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    // Fallback for older browsers that do not support IntersectionObserver
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+
+  // --- Hidden Notes (Easter Egg) ---
   const HIDDEN_TRACKS = [
     { id: 'l4zkc7KEvYM', start: 1554, title: 'Rachmaninov — Concerto n. 2' },
     { id: 'ItSJ_woWnmk', start: 45,   title: 'Čajkovskij — Concerto n. 1' },
@@ -51,22 +90,30 @@
   const npBar = document.getElementById('nowPlayingBar');
   const npLabel = document.getElementById('npLabel');
   const npClose = document.getElementById('npClose');
+  const npOpen = document.getElementById('npOpen');
   const allNotes = document.querySelectorAll('.hidden-note');
   let activeNoteEl = null;
 
-  function stopHiddenTrack(){
+  function stopHiddenTrack() {
     audioFrame.src = '';
     npBar.classList.remove('show');
-    if (activeNoteEl){ activeNoteEl.classList.remove('playing'); activeNoteEl = null; }
+    if (activeNoteEl) {
+      activeNoteEl.classList.remove('playing');
+      activeNoteEl = null;
+    }
   }
 
-  const npOpen = document.getElementById('npOpen');
-
-  function playHiddenTrack(track, noteEl){
+  function playHiddenTrack(track, noteEl) {
     if (activeNoteEl) activeNoteEl.classList.remove('playing');
+    
+    // Construct YouTube embed URL
     audioFrame.src = `https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&start=${track.start}&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1`;
     npLabel.textContent = track.title;
-    if (npOpen) npOpen.href = `https://www.youtube.com/watch?v=${track.id}&t=${track.start}s`;
+    
+    if (npOpen) {
+      npOpen.href = `https://www.youtube.com/watch?v=${track.id}&t=${track.start}s`;
+    }
+    
     npBar.classList.add('show');
     noteEl.classList.add('playing');
     activeNoteEl = noteEl;
@@ -76,29 +123,25 @@
     const idx = parseInt(el.getAttribute('data-track'), 10);
     const track = HIDDEN_TRACKS[idx];
     if (!track) return;
+    
     const trigger = () => {
-      if (activeNoteEl === el){ stopHiddenTrack(); }
-      else { playHiddenTrack(track, el); }
+      if (activeNoteEl === el) {
+        stopHiddenTrack();
+      } else {
+        playHiddenTrack(track, el);
+      }
     };
+    
     el.addEventListener('click', trigger);
     el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); trigger(); }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger();
+      }
     });
   });
 
-  if (npClose) npClose.addEventListener('click', stopHiddenTrack);
-
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && revealEls.length){
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('in-view'));
+  if (npClose) {
+    npClose.addEventListener('click', stopHiddenTrack);
   }
+});
