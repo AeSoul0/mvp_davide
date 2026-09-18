@@ -752,7 +752,7 @@ nav.scrolled {
 /* Footer */
 .site-footer {
   padding: 40px 0;
-  background: var(--surface);
+  background: var(--ink);
   border-top: 1px solid var(--rule);
 }
 .footer-inner {

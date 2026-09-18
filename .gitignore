@@ -9,8 +9,6 @@ package-lock.json
 # OS Files
 .DS_Store
 Thumbs.db
-
-
 roadmap_final.md
 
 # Environment Variables & Secrets
