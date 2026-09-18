@@ -581,9 +581,9 @@ nav.scrolled {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 80px;
-  padding: 64px;
-  border: 1px solid var(--brass-soft);
-  border-radius: 4px;
+  padding: 64px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 .research-title h2 {
   font-size: 2rem;
@@ -595,10 +595,11 @@ nav.scrolled {
   gap: 40px;
 }
 .research-item {
-  border: 1px solid rgba(185, 154, 83, 0.3);
-  padding: 24px;
-  border-radius: 8px;
-  background: rgba(17, 31, 50, 0.5); /* var(--surface) semitrasparente */
+  border: 1px solid var(--brass-soft);
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(17, 31, 50, 0.7);
+  box-shadow: 0 8px 32px -8px rgba(0,0,0,0.4);
 }
 .research-item h4 {
   font-family: var(--font-sans);
@@ -832,9 +833,9 @@ nav.scrolled {
   align-items: center;
   gap: 16px;
   padding: 12px 16px 12px 12px;
-  border-radius: 4px;
+  border-radius: 8px;
   background: rgba(17, 31, 50, 0.95);
-  border: 1px solid var(--brass-soft);
+  border-top: 1px solid var(--brass); border-bottom: 1px solid var(--brass); padding: 64px 0;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
@@ -978,5 +979,38 @@ nav.scrolled {
 :focus-visible {
   outline: 2px solid var(--brass);
   outline-offset: 4px;
+}
+
+/* CSP Utility Classes replacing inline styles */
+.note-1 { top: 5%; right: 10%; --r: -15deg; }
+.note-2 { top: 15%; left: 5%; --r: 25deg; }
+.note-3 { bottom: 10%; right: 8%; --r: -10deg; }
+.note-4 { top: 50%; left: 10%; --r: 12deg; }
+.contact-socials-wrapper { margin-top: 48px; }
+.contact-social-label { margin-bottom: 16px; }
+
+/* Editorial Gallery Override */
+.editorial-gallery {
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+}
+.editorial-gallery .g-full {
+  grid-column: 1 / -1;
+  aspect-ratio: 21/9;
+}
+.editorial-gallery img {
+  aspect-ratio: 4/3;
+}
+@media (max-width: 768px) {
+  .editorial-gallery .g-full { aspect-ratio: 16/9; }
+}
+
+
+.section-padding-sm {
+  padding: 80px 0;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .section-padding-sm { padding: 60px 0; }
 }
 

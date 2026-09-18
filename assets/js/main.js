@@ -34,10 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mobileMenuBtn && mobileMenu) {
     const toggleMenu = () => {
       const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      const newState = !isExpanded;
+      mobileMenuBtn.setAttribute('aria-expanded', newState);
       mobileMenuBtn.classList.toggle('open');
       mobileMenu.classList.toggle('open');
-      document.body.style.overflow = isExpanded ? '' : 'hidden';
+      mobileMenu.setAttribute('aria-hidden', !newState);
+      document.body.style.overflow = newState ? 'hidden' : '';
     };
 
     mobileMenuBtn.addEventListener('click', toggleMenu);
@@ -48,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
           toggleMenu();
         }
       });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        toggleMenu();
+        mobileMenuBtn.focus();
+      }
     });
   }
 
@@ -107,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeNoteEl) activeNoteEl.classList.remove('playing');
     
     // Construct YouTube embed URL
-    audioFrame.src = `https://www.youtube.com/embed/${track.id}?autoplay=1&start=${track.start}`;
+    audioFrame.src = `https://www.youtube-nocookie.com/embed/${track.id}?autoplay=1&start=${track.start}`;
     npLabel.textContent = track.title;
     
     if (npOpen) {

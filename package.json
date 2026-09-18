@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Portfolio di Davide Lombardi",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "check": "node check.js"
   },
   "author": "AeSoul",
   "license": "ISC"

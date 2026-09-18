@@ -9,3 +9,16 @@ package-lock.json
 # OS Files
 .DS_Store
 Thumbs.db
+
+
+roadmap_final.md
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+secrets.json
+
