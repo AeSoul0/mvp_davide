@@ -228,25 +228,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const HIDDEN_TRACKS = [
     {
-      id: 'c33q87s03h4',
-      start: 1554,
+      id: '6Nrexs0g6lk',
+      start: 0,
       title: 'Rachmaninov — Concerto n. 2'
     },
     {
-      id: 'kYJ7w4V67pQ',
-      start: 45,
+      id: '8MBT3ncnnmY',
+      start: 0,
       title: 'Čajkovskij — Concerto n. 1'
     },
     null, // Removed Rachmaninov n. 3
     null, // Removed Brahms n. 1
     {
-      id: 'SaBzNtvjI_0',
+      id: 'L_A4WlyUJ7g',
       start: 0,
       title: 'Mozart — Aria da Don Giovanni'
     },
     {
-      id: '-ySDS5dsXSw',
-      start: 5,
+      id: 'J02j_bjTO7k',
+      start: 0,
       title: 'Mozart — Ouverture, Le nozze di Figaro'
     }
   ];
