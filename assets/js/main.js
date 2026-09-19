@@ -11,6 +11,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+  
   // ---------------------------------------------------------------------------
   // Initial page state
   // ---------------------------------------------------------------------------
@@ -235,16 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
       start: 45,
       title: 'Čajkovskij — Concerto n. 1'
     },
-    {
-      id: 'k5q4Gf54n1I',
-      start: 35,
-      title: 'Rachmaninov — Concerto n. 3'
-    },
-    {
-      id: 'wX-yUaJ9H5g',
-      start: 326,
-      title: 'Brahms — Concerto n. 1'
-    },
+    null, // Removed Rachmaninov n. 3
+    null, // Removed Brahms n. 1
     {
       id: '7T4z6MI4hkU',
       start: 0,
@@ -330,15 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     noteElement.addEventListener('click', triggerTrack);
-
-    noteElement.addEventListener('keydown', event => {
-      if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
-      }
-
-      event.preventDefault();
-      triggerTrack();
-    });
   });
 
   if (nowPlayingClose) {
@@ -402,9 +387,43 @@ document.addEventListener('DOMContentLoaded', () => {
         'strict-origin-when-cross-origin'
       );
 
-      youtubeFacade.innerHTML = '';
-      youtubeFacade.appendChild(iframe);
-      youtubeFacade.style.cursor = 'default';
+      const container = document.getElementById('yt-facade-container') || youtubeFacade;
+      container.innerHTML = '';
+      container.appendChild(iframe);
+      container.style.cursor = 'default';
+
+      iframe.addEventListener('load', () => {
+        iframe.focus();
+      });
     });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Hero video loading
+  // ---------------------------------------------------------------------------
+
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSaveData = navigator.connection && navigator.connection.saveData;
+
+    if (!prefersReducedMotion && !isSaveData) {
+      const loadVideo = () => {
+        const sources = heroVideo.querySelectorAll('source');
+        sources.forEach(source => {
+          if (source.dataset.src) {
+            source.src = source.dataset.src;
+          }
+        });
+        heroVideo.load();
+        heroVideo.play().catch(e => console.warn('Autoplay prevented', e));
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadVideo);
+      } else {
+        setTimeout(loadVideo, 1000);
+      }
+    }
   }
 });

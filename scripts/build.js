@@ -45,3 +45,20 @@ if (unresolvedIncludes) {
 fs.writeFileSync(destIndex, content, 'utf8');
 
 console.log('✅ Build complete: index.html updated.');
+
+// -----------------------------------------------------------------------------
+// Sitemap generation
+// -----------------------------------------------------------------------------
+const sitemapPath = path.join(rootDir, 'sitemap.xml');
+const today = new Date().toISOString().split('T')[0];
+const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://davidelombardipianoforte.biz/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`;
+fs.writeFileSync(sitemapPath, sitemapContent, 'utf8');
+console.log('✅ Generated sitemap.xml.');

@@ -281,6 +281,19 @@ https://www.youtube-nocookie.com
 
 Le modifiche alla CSP devono essere effettuate con attenzione perché possono impedire il caricamento di font, iframe o risorse esterne.
 
+## 📊 Performance Budget (Lighthouse)
+
+Durante lo sviluppo, si raccomanda di mantenere i seguenti punteggi Lighthouse (Desktop) come guardrail:
+
+- **Performance:** ≥ 90
+- **Accessibility:** ≥ 95
+- **Best Practices:** ≥ 95
+- **SEO:** ≥ 95
+
+## 🤖 CI / CD (GitHub Actions)
+
+Il progetto include un workflow in `.github/workflows/ci.yml` che esegue automaticamente `npm run build` e `npm run check` ad ogni push e pull request sul branch `main`. Questo garantisce che non vengano integrati codici rotti o file desincronizzati.
+
 ## 🧪 QA
 
 Il controllo automatico può essere eseguito con:

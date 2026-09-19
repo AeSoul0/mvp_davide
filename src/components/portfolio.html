@@ -3,7 +3,7 @@
   @description Main portfolio sections: Music, Profile, and Selected Experiences.
 -->
   <section id="music" class="section-padding">
-    <span class="hidden-note note-1" data-track="0" data-title="Rachmaninov — Concerto n. 2" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-1" data-track="0" data-title="Rachmaninov — Concerto n. 2" aria-label="Riproduci Rachmaninov — Concerto n. 2"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="section-header reveal">
@@ -12,9 +12,11 @@
       </div>
       
       <div class="music-layout">
-        <div class="music-player reveal" id="yt-facade" data-vid="kYJ7w4V67pQ" data-start="45">
-          <button class="yt-play-btn" aria-label="Riproduci video"></button>
-          <img src="https://img.youtube.com/vi/kYJ7w4V67pQ/maxresdefault.jpg" alt="Copertina video performance" loading="lazy" class="yt-poster">
+        <div class="music-player reveal" id="yt-facade-container">
+          <button class="yt-facade-btn" id="yt-facade" data-vid="kYJ7w4V67pQ" data-start="45" aria-label="Riproduci video performance: Čajkovskij — Concerto n. 1">
+            <span class="yt-play-btn"></span>
+            <img src="https://img.youtube.com/vi/kYJ7w4V67pQ/maxresdefault.jpg" width="1280" height="720" alt="Copertina video performance" loading="lazy" class="yt-poster">
+          </button>
         </div>
         <div class="music-info reveal delay-1">
           <div class="music-tag">IN EVIDENZA</div>
@@ -40,7 +42,7 @@
   </section>
 
   <section id="esperienze" class="section-padding">
-    <span class="hidden-note note-2" data-track="1" data-title="Čajkovskij — Concerto n. 1" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-2" data-track="1" data-title="Čajkovskij — Concerto n. 1" aria-label="Riproduci Čajkovskij — Concerto n. 1"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="section-header reveal">
@@ -51,7 +53,7 @@
       <div class="experiences-list">
                 <div class="experience-row reveal">
           <div class="experience-image">
-            <img src="assets/images/image_1.webp" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza" loading="lazy">
+            <img src="assets/images/image_1.webp" width="812" height="540" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">SAPIENZA UNIVERSITÀ DI ROMA</div>
@@ -62,7 +64,7 @@
 
                 <div class="experience-row reverse reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra_1.webp" alt="Saluti finali del cast dello spettacolo Mahagonny Suite" loading="lazy">
+            <img src="assets/images/image_extra_1.webp" width="1400" height="875" alt="Saluti finali del cast dello spettacolo Mahagonny Suite" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">NUOVO TEATRO ATENEO</div>
@@ -73,7 +75,7 @@
 
                 <div class="experience-row reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra2_2.webp" alt="Recital pubblico" loading="lazy">
+            <img src="assets/images/image_extra2_2.webp" width="1033" height="1024" alt="Recital pubblico" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">ACCADEMIA MUSICALE PRAENESTE</div>
@@ -84,7 +86,7 @@
 
                 <div class="experience-row reverse reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra_3.webp" alt="Notte Nazionale dei Licei Classici" loading="lazy">
+            <img src="assets/images/image_extra_3.webp" width="1400" height="630" alt="Notte Nazionale dei Licei Classici" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">LICEO CLASSICO "GIULIO CESARE"</div>
@@ -97,9 +99,9 @@
   </section>
   <section id="gallery" class="gallery-section reveal">
     <div class="gallery-grid editorial-gallery">
-      <img src="assets/images/image_extra2_1.webp" alt="Scena spettacolo" class="gallery-img g-full" loading="lazy">
-      <img src="assets/images/image_3.webp" alt="Tesi di laurea" class="gallery-img" loading="lazy">
-      <img src="assets/images/image_2.webp" alt="In platea" class="gallery-img" loading="lazy">
-      <img src="assets/images/image_extra_2.webp" alt="Ensemble" class="gallery-img g-full" loading="lazy">
+      <img src="assets/images/image_extra2_1.webp" width="933" height="1400" alt="Scena spettacolo" class="gallery-img g-full" loading="lazy">
+      <img src="assets/images/image_3.webp" width="630" height="1400" alt="Tesi di laurea" class="gallery-img" loading="lazy">
+      <img src="assets/images/image_2.webp" width="1400" height="933" alt="In platea" class="gallery-img" loading="lazy">
+      <img src="assets/images/image_extra_2.webp" width="1400" height="933" alt="Ensemble" class="gallery-img g-full" loading="lazy">
     </div>
   </section>

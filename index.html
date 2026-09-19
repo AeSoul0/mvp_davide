@@ -12,40 +12,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Davide Lombardi — Pianista</title>
-<meta name="description" content="Davide Lombardi, pianista. Formazione al Conservatorio Santa Cecilia di Roma, attività concertistica e lezioni di pianoforte, teoria e storia della musica.">
-<meta property="og:title" content="Davide Lombardi — Pianista">
+<title>Davide Lombardi — Pianista a Roma</title>
+<meta name="description" content="Davide Lombardi, pianista a Roma. Formazione al Conservatorio Santa Cecilia, attività concertistica, lezioni di pianoforte, teoria e storia della musica.">
+<meta property="og:title" content="Davide Lombardi — Pianista a Roma">
 <meta property="og:description" content="Sito ufficiale di Davide Lombardi, pianista basato a Roma. Scopri il profilo, la formazione, l'attività concertistica e ascolta le performance.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://davidelombardipianoforte.biz/">
-<meta property="og:image" content="https://davidelombardipianoforte.biz/assets/images/image_1.webp">
+<meta property="og:image" content="https://davidelombardipianoforte.biz/assets/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Davide Lombardi, pianista">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://davidelombardipianoforte.biz/assets/images/image_1.webp">
+<meta name="twitter:title" content="Davide Lombardi — Pianista a Roma">
+<meta name="twitter:description" content="Sito ufficiale di Davide Lombardi, pianista basato a Roma. Lezioni di pianoforte e concerti.">
+<meta name="twitter:image" content="https://davidelombardipianoforte.biz/assets/images/og-image.jpg">
 <link rel="icon" href="assets/images/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 <meta name="theme-color" content="#0A1422">
 <link rel="canonical" href="https://davidelombardipianoforte.biz/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Davide Lombardi",
-  "jobTitle": "Pianista",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Roma",
-    "addressCountry": "IT"
-  },
-  "url": "https://davidelombardipianoforte.biz",
-  "sameAs": [
-    "https://www.youtube.com/@davidelombardi1827",
-    "https://www.instagram.com/davide_.lombardi/",
-    "https://www.tiktok.com/@davide_.lombardi"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://davidelombardipianoforte.biz/#website",
+      "url": "https://davidelombardipianoforte.biz/",
+      "name": "Davide Lombardi — Pianista",
+      "publisher": {
+        "@id": "https://davidelombardipianoforte.biz/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://davidelombardipianoforte.biz/#person",
+      "name": "Davide Lombardi",
+      "jobTitle": "Pianista",
+      "image": "https://davidelombardipianoforte.biz/assets/images/image_1.webp",
+      "email": "lombardid363@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Roma",
+        "addressCountry": "IT"
+      },
+      "url": "https://davidelombardipianoforte.biz",
+      "sameAs": [
+        "https://www.youtube.com/@davidelombardi1827",
+        "https://www.instagram.com/davide_.lombardi/",
+        "https://www.tiktok.com/@davide_.lombardi"
+      ]
+    }
   ]
 }
 </script>
@@ -138,9 +158,9 @@
 -->
 <header class="hero" id="home">
   <div class="hero-video-wrapper">
-    <video autoplay muted loop playsinline tabindex="-1" aria-hidden="true" poster="assets/video/hero-poster.webp">
-      <source src="assets/video/hero-mobile.mp4" media="(max-width: 768px)" type="video/mp4">
-      <source src="assets/video/hero-chopin.mp4" type="video/mp4">
+    <video id="hero-video" muted loop playsinline tabindex="-1" aria-hidden="true" poster="assets/video/hero-poster.webp">
+      <source data-src="assets/video/hero-mobile.mp4" media="(max-width: 768px)" type="video/mp4">
+      <source data-src="assets/video/hero-chopin.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
   </div>
@@ -170,7 +190,7 @@
   @description Main portfolio sections: Music, Profile, and Selected Experiences.
 -->
   <section id="music" class="section-padding">
-    <span class="hidden-note note-1" data-track="0" data-title="Rachmaninov — Concerto n. 2" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-1" data-track="0" data-title="Rachmaninov — Concerto n. 2" aria-label="Riproduci Rachmaninov — Concerto n. 2"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="section-header reveal">
@@ -179,9 +199,11 @@
       </div>
       
       <div class="music-layout">
-        <div class="music-player reveal" id="yt-facade" data-vid="kYJ7w4V67pQ" data-start="45">
-          <button class="yt-play-btn" aria-label="Riproduci video"></button>
-          <img src="https://img.youtube.com/vi/kYJ7w4V67pQ/maxresdefault.jpg" alt="Copertina video performance" loading="lazy" class="yt-poster">
+        <div class="music-player reveal" id="yt-facade-container">
+          <button class="yt-facade-btn" id="yt-facade" data-vid="kYJ7w4V67pQ" data-start="45" aria-label="Riproduci video performance: Čajkovskij — Concerto n. 1">
+            <span class="yt-play-btn"></span>
+            <img src="https://img.youtube.com/vi/kYJ7w4V67pQ/maxresdefault.jpg" width="1280" height="720" alt="Copertina video performance" loading="lazy" class="yt-poster">
+          </button>
         </div>
         <div class="music-info reveal delay-1">
           <div class="music-tag">IN EVIDENZA</div>
@@ -207,7 +229,7 @@
   </section>
 
   <section id="esperienze" class="section-padding">
-    <span class="hidden-note note-2" data-track="1" data-title="Čajkovskij — Concerto n. 1" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-2" data-track="1" data-title="Čajkovskij — Concerto n. 1" aria-label="Riproduci Čajkovskij — Concerto n. 1"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="section-header reveal">
@@ -218,7 +240,7 @@
       <div class="experiences-list">
                 <div class="experience-row reveal">
           <div class="experience-image">
-            <img src="assets/images/image_1.webp" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza" loading="lazy">
+            <img src="assets/images/image_1.webp" width="812" height="540" alt="Davide Lombardi al pianoforte durante l'evento La memoria delle cose alla Sapienza" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">SAPIENZA UNIVERSITÀ DI ROMA</div>
@@ -229,7 +251,7 @@
 
                 <div class="experience-row reverse reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra_1.webp" alt="Saluti finali del cast dello spettacolo Mahagonny Suite" loading="lazy">
+            <img src="assets/images/image_extra_1.webp" width="1400" height="875" alt="Saluti finali del cast dello spettacolo Mahagonny Suite" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">NUOVO TEATRO ATENEO</div>
@@ -240,7 +262,7 @@
 
                 <div class="experience-row reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra2_2.webp" alt="Recital pubblico" loading="lazy">
+            <img src="assets/images/image_extra2_2.webp" width="1033" height="1024" alt="Recital pubblico" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">ACCADEMIA MUSICALE PRAENESTE</div>
@@ -251,7 +273,7 @@
 
                 <div class="experience-row reverse reveal">
           <div class="experience-image">
-            <img src="assets/images/image_extra_3.webp" alt="Notte Nazionale dei Licei Classici" loading="lazy">
+            <img src="assets/images/image_extra_3.webp" width="1400" height="630" alt="Notte Nazionale dei Licei Classici" loading="lazy">
           </div>
           <div class="experience-content">
             <div class="exp-meta">LICEO CLASSICO "GIULIO CESARE"</div>
@@ -264,10 +286,10 @@
   </section>
   <section id="gallery" class="gallery-section reveal">
     <div class="gallery-grid editorial-gallery">
-      <img src="assets/images/image_extra2_1.webp" alt="Scena spettacolo" class="gallery-img g-full" loading="lazy">
-      <img src="assets/images/image_3.webp" alt="Tesi di laurea" class="gallery-img" loading="lazy">
-      <img src="assets/images/image_2.webp" alt="In platea" class="gallery-img" loading="lazy">
-      <img src="assets/images/image_extra_2.webp" alt="Ensemble" class="gallery-img g-full" loading="lazy">
+      <img src="assets/images/image_extra2_1.webp" width="933" height="1400" alt="Scena spettacolo" class="gallery-img g-full" loading="lazy">
+      <img src="assets/images/image_3.webp" width="630" height="1400" alt="Tesi di laurea" class="gallery-img" loading="lazy">
+      <img src="assets/images/image_2.webp" width="1400" height="933" alt="In platea" class="gallery-img" loading="lazy">
+      <img src="assets/images/image_extra_2.webp" width="1400" height="933" alt="Ensemble" class="gallery-img g-full" loading="lazy">
     </div>
   </section>
 
@@ -276,7 +298,7 @@
   @description Resume and background sections: Education, Research, Skills, and About.
 -->
   <section id="formazione" class="section-padding-sm bg-surface">
-    <span class="hidden-note note-3" data-track="4" data-title="Mozart — Aria da Don Giovanni" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-3" data-track="4" data-title="Mozart — Aria da Don Giovanni" aria-label="Riproduci Mozart — Aria da Don Giovanni"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="section-header reveal">
@@ -329,11 +351,11 @@
         </div>
         <div class="research-content">
           <div class="research-item">
-            <h4>Improcomp (2024)</h4>
+            <h3>Improcomp (2024)</h3>
             <p>Corsi di Perfezionamento e Approfondimento Teorico di Alto Livello, con focus su teoria avanzata, composizione e improvvisazione.</p>
           </div>
           <div class="research-item">
-            <h4>M° Piero Rattalino</h4>
+            <h3>M° Piero Rattalino</h3>
             <p>Masterclass e corsi teorici presso l'Accademia Musicale Praeneste, approfondendo la storia dell'interpretazione pianistica, l'analisi e la critica musicale.</p>
           </div>
         </div>
@@ -342,6 +364,7 @@
   </section>
   <section id="competenze" class="section-padding-sm bg-surface">
     <div class="container">
+      <h2 class="sr-only">Competenze e Discipline</h2>
       <div class="skills-typography reveal">
         <div class="skill-category">
           <h3 class="skill-head">PERFORMANCE</h3>
@@ -359,12 +382,12 @@
     </div>
   </section>
   <section id="about" class="section-padding-sm">
-    <span class="hidden-note note-4" data-track="5" data-title="Mozart — Ouverture, Le nozze di Figaro" role="button" tabindex="0" aria-label="Nota nascosta"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></span>
+    <button class="hidden-note note-4" data-track="5" data-title="Mozart — Ouverture, Le nozze di Figaro" aria-label="Riproduci Mozart — Ouverture, Le nozze di Figaro"><svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="7" cy="25" rx="5.5" ry="4" transform="rotate(-18 7 25)" fill="currentColor"/><path d="M11.8 22V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 5c3 0.5 6 3 6 7.5c0 1.5-.6 2.7-1.4 3.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
     
     <div class="container">
       <div class="about-layout">
         <div class="about-image reveal">
-          <img src="assets/images/image_5.webp" alt="Davide Lombardi da bambino al pianoforte" loading="lazy">
+          <img src="assets/images/image_5.webp" width="1250" height="832" alt="Davide Lombardi da bambino al pianoforte" loading="lazy">
         </div>
         <div class="about-text reveal delay-1">
           <h2>Gli Inizi</h2>
@@ -441,7 +464,7 @@
   <div class="np-video-wrapper">
     <iframe id="hiddenAudioFrame" src="" allow="autoplay; encrypted-media; picture-in-picture" title="Player brano nascosto" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
-  <span class="np-label" id="npLabel">In riproduzione</span>
+  <span class="np-label" id="npLabel" role="status" aria-live="polite">In riproduzione</span>
   <a class="np-open" id="npOpen" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
   <button class="np-close" id="npClose" type="button" aria-label="Ferma la riproduzione">&times;</button>
 </div>
