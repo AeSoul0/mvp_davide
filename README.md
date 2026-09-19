@@ -56,6 +56,8 @@ L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e
 
 Le note nascoste presenti nella pagina possono attivare un mini-player basato su YouTube.
 
+> **Nota importante per i video YouTube**: Se modifichi gli ID dei video in `main.js` o in `portfolio.html`, assicurati che l'autore del video su YouTube abbia esplicitamente **consentito l'incorporamento (embedding)**. Molti video musicali protetti da copyright bloccano l'incorporamento, causando un errore di riproduzione nel player integrato sul sito.
+
 Le tracce configurate includono composizioni di:
 
 - Čajkovskij
