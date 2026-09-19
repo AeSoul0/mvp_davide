@@ -6,6 +6,5 @@
     "build": "node scripts/build.js",
     "check": "node scripts/check.js"
   },
-  "author": "AeSoul",
-  "license": "ISC"
+  "author": "AeSoul"
 }
