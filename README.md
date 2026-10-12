@@ -209,6 +209,7 @@ Puoi utilizzare un'estensione come **Live Server**.
 │       └── simple-footer.html
 │
 ├── .gitignore
+├── .vercelignore
 ├── 404.html
 ├── index.html
 ├── privacy.html
@@ -216,7 +217,6 @@ Puoi utilizzare un'estensione come **Live Server**.
 ├── robots.txt
 ├── site.webmanifest
 ├── sitemap.xml
-├── STATO_PROGETTO.md
 └── README.md
 ```
 
@@ -237,7 +237,6 @@ Puoi utilizzare un'estensione come **Live Server**.
 | `vercel.json` | Header HTTP e policy di sicurezza (letti da Vercel) |
 | `robots.txt` | Regole per i crawler |
 | `site.webmanifest` | Manifest con le icone (Android / "aggiungi a schermata Home") |
-| `STATO_PROGETTO.md` | Log dello stato del sito e delle attività rimanenti |
 | `sitemap.xml` | Sitemap XML |
 | `package.json` | Script npm del progetto |
 
@@ -276,21 +275,16 @@ perché sono file generati dal build.
 
 ## 🌐 Deploy
 
-Il sito è pubblicato su **Vercel**, con deploy automatico a ogni push su `main` (indirizzo principale: `https://www.davidelombardipianoforte.biz/`). Gli header HTTP sono in `vercel.json`.
+Il sito è pubblicato su **Vercel**, con deploy automatico a ogni push su `main` (indirizzo principale: `https://www.davidelombardipianoforte.biz/`; il dominio senza `www` reindirizza lì).
 
-Build command:
+- Vercel pubblica la root del repository così com'è: prima del push esegui `npm run build && npm run check` e fai commit anche dei file generati.
+- `vercel.json` contiene gli header HTTP e i rimandi di `/favicon.ico` e `/apple-touch-icon.png`.
+- `.vercelignore` esclude dalla pubblicazione sorgenti e strumenti (`src/`, `scripts/`, `.github/`, `README.md`).
+- Il DNS del dominio è gestito da **Wix** (`ns4/ns5.wixdns.net`).
 
-```bash
-npm run build && npm run check
-```
+### Google Search Console
 
-Publish directory:
-
-```text
-/
-```
-
-Il deployment deve pubblicare la root del repository, dove si trova l'`index.html` generato.
+La proprietà `https://www.davidelombardipianoforte.biz/` è verificata tramite il meta tag `google-site-verification` in `src/components/head.html`. **Non rimuoverlo**: senza il tag la proprietà perde la verifica. La sitemap `sitemap.xml` è inviata in Search Console.
 
 ## 🔐 Note sulla sicurezza
 
