@@ -167,6 +167,7 @@ Puoi utilizzare un'estensione come **Live Server**.
 ## 📁 Struttura del progetto
 
 ```text
+├── .github/workflows/ci.yml       (CI: build + check)
 ├── vercel.json                    (header HTTP e CSP per Vercel)
 │
 ├── assets/
@@ -235,6 +236,8 @@ Puoi utilizzare un'estensione come **Live Server**.
 | `assets/css/style.css` | Stili principali |
 | `assets/js/main.js` | Interazioni e logica frontend |
 | `vercel.json` | Header HTTP e policy di sicurezza (letti da Vercel) |
+| `.vercelignore` | File esclusi dalla pubblicazione su Vercel (sorgenti e strumenti) |
+| `.github/workflows/ci.yml` | CI: build e controlli a ogni push e pull request su `main` |
 | `robots.txt` | Regole per i crawler |
 | `site.webmanifest` | Manifest con le icone (Android / "aggiungi a schermata Home") |
 | `sitemap.xml` | Sitemap XML |
