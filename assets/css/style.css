@@ -6,6 +6,64 @@
  */
 
 /* ==========================================================================
+   Fonts (self-hosted, latin + latin-ext subsets — no requests to Google)
+   ========================================================================== */
+/* Inter normal — latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('../fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Inter normal — latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('../fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Playfair Display italic — latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/playfair-display-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Playfair Display italic — latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/playfair-display-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Playfair Display normal — latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/playfair-display-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Playfair Display normal — latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/playfair-display-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
    CSS Variables
    ========================================================================== */
 :root {
@@ -1077,3 +1135,87 @@ nav.scrolled {
 
 
 
+
+/* ==========================================================================
+   Secondary pages (privacy, 404)
+   ========================================================================== */
+.simple-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.simple-header {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.simple-main {
+  flex: 1;
+  padding: 80px 0 100px;
+}
+.simple-main h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin-bottom: 20px;
+}
+.simple-lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 60ch;
+  margin: 0 0 40px;
+}
+.simple-footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.simple-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.error-page {
+  display: flex;
+  align-items: center;
+}
+.error-code {
+  font-family: var(--font-serif);
+  font-size: clamp(5rem, 18vw, 9rem);
+  line-height: 1;
+  color: var(--brass);
+  margin: 0 0 16px;
+}
+.legal .container {
+  max-width: 820px;
+}
+.legal h2 {
+  font-size: 1.35rem;
+  margin: 44px 0 12px;
+  color: var(--brass);
+}
+.legal p {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+.legal a {
+  color: var(--paper);
+  border-bottom: 1px solid var(--brass-soft);
+}
+.legal a:hover {
+  border-color: var(--brass);
+}
+.legal code {
+  font-size: 0.9em;
+  color: var(--paper);
+}
+.legal-updated {
+  margin-top: 56px;
+  font-size: 0.85rem;
+}
+.footer-copy a {
+  border-bottom: 1px solid var(--brass-soft);
+  transition: border-color 0.3s ease;
+}
+.footer-copy a:hover {
+  border-color: var(--brass);
+}
