@@ -183,6 +183,7 @@ Puoi utilizzare un'estensione come **Live Server**.
 │   │   ├── icon-192.png / icon-512.png
 │   │   ├── og-image.jpg           (1200×630)
 │   │   ├── yt-cover.webp          (copertina del player YouTube)
+│   │   ├── signature.webp         (firma animata nell'hero)
 │   │   ├── *.webp
 │   │   └── *-800.webp             (varianti per srcset)
 │   └── video/
