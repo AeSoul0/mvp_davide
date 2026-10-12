@@ -35,7 +35,7 @@ L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e
 
 ### Sicurezza
 
-- Content Security Policy definita in `_headers`.
+- Content Security Policy definita in `vercel.json` (header HTTP applicati da Vercel).
 - `X-Content-Type-Options: nosniff`.
 - `Referrer-Policy`.
 - `Strict-Transport-Security`.
@@ -167,7 +167,7 @@ Puoi utilizzare un'estensione come **Live Server**.
 ## 📁 Struttura del progetto
 
 ```text
-├── _headers
+├── vercel.json                    (header HTTP e CSP per Vercel)
 │
 ├── assets/
 │   ├── css/
@@ -234,7 +234,7 @@ Puoi utilizzare un'estensione come **Live Server**.
 | `assets/fonts/` | Font ospitati in locale (nessuna richiesta a Google) |
 | `assets/css/style.css` | Stili principali |
 | `assets/js/main.js` | Interazioni e logica frontend |
-| `_headers` | Header HTTP e policy di sicurezza |
+| `vercel.json` | Header HTTP e policy di sicurezza (letti da Vercel) |
 | `robots.txt` | Regole per i crawler |
 | `site.webmanifest` | Manifest con le icone (Android / "aggiungi a schermata Home") |
 | `STATO_PROGETTO.md` | Log dello stato del sito e delle attività rimanenti |
@@ -297,7 +297,7 @@ Il deployment deve pubblicare la root del repository, dove si trova l'`index.htm
 Le policy principali sono definite in:
 
 ```text
-_headers
+vercel.json
 ```
 
 La Content Security Policy consente esclusivamente le origini necessarie al funzionamento del sito. Stili e font sono serviti solo dal sito stesso (`'self'`); l'unica origine esterna per i frame è:

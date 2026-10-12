@@ -16,7 +16,7 @@ const requiredFiles = [
   'assets/video/hero-poster.webp',
   'robots.txt',
   'sitemap.xml',
-  '_headers',
+  'vercel.json',
   'assets/images/favicon.ico',
   'assets/images/apple-touch-icon.png',
   'assets/images/icon-192.png',

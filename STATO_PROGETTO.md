@@ -71,7 +71,7 @@ La qualità visiva dei video è praticamente identica all'originale (SSIM 0,994)
 
 Non verificabili da qui (la rete di sviluppo non raggiunge YouTube né l'hosting):
 
-- Che l'hosting legga il file `_headers` (Netlify e Cloudflare Pages sì; GitHub Pages no) e serva `404.html` per gli indirizzi inesistenti.
+- L'hosting è Vercel (deploy da `main`): gli header sono in `vercel.json` (Vercel ignora `_headers`). Verificare che CSP e HSTS compaiano e che `404.html` venga servita per gli indirizzi inesistenti.
 - Che i video YouTube (player principale e note nascoste) siano ancora incorporabili.
 - Registrazione del sito su Google Search Console e invio di `sitemap.xml`.
 - Lighthouse sul sito pubblicato: in locale gli unici avvisi riguardano compressione e cache, che sul sito reale sono gestite dall'hosting.
