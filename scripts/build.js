@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const { rootDir, listPages, assemblePage } = require('./pages');
 
-const SITE_URL = 'https://davidelombardipianoforte.biz/';
+const SITE_URL = 'https://www.davidelombardipianoforte.biz/';
 // Pages that must not be listed in the sitemap
 const SITEMAP_EXCLUDED = ['404.html'];
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://davidelombardipianoforte.biz/sitemap.xml
+Sitemap: https://www.davidelombardipianoforte.biz/sitemap.xml
