@@ -49,7 +49,7 @@ La qualità visiva dei video è praticamente identica all'originale (SSIM 0,994)
 |---|---|---|
 | Font ospitati in locale | ✅ | Inter e Playfair Display in `assets/fonts/` (solo latin + latin-ext, ~228 KB in tutto, il browser scarica solo i sottoinsiemi che servono). Rimossi i link a Google Fonts; la CSP ora consente stili e font solo dal sito. |
 | Informativa privacy | ✅ | Nuova pagina `privacy.html`, collegata dal footer. |
-| Pagina 404 | ✅ | Nuova pagina `404.html` con link alla home (Netlify e Cloudflare Pages la usano in automatico). |
+| Pagina 404 | ✅ | Nuova pagina `404.html` con link alla home (Vercel la serve in automatico per gli indirizzi inesistenti). |
 | Foto `image_extra2_1.webp` sfocata | ✅ | Spostata in un riquadro a metà larghezza; a tutta larghezza ora c'è `image_2.webp` (1400 px), che ha la risoluzione giusta. |
 | Copertina video YouTube | ✅ | Sostituita da `yt-cover.webp` locale (24 KB), un fotogramma di Davide al pianoforte. Al caricamento della pagina il sito non contatta più nessun server esterno. |
 | `og-image.jpg` in formato 1200×630 | ✅ | Ridimensionata (contenuto centrato, nessun testo tagliato), 43 KB; aggiunti i meta `og:image:width/height`. |
@@ -67,11 +67,34 @@ La qualità visiva dei video è praticamente identica all'originale (SSIM 0,994)
 3. **Informativa privacy**: è un testo base scritto sulla situazione reale del sito (nessun cookie, YouTube solo dopo il clic, contatti via email/WhatsApp). Va riletta da Davide ed eventualmente da un professionista; se vuoi, si può indicare il nome del fornitore di hosting nella sezione "Dati di navigazione".
 4. **Statistiche visite**: non aggiunte. Richiedono di scegliere un servizio e creare un account (consigliati Plausible o Cloudflare Web Analytics, senza cookie). Una volta scelto, servono lo script/token e l'aggiornamento di CSP e informativa privacy.
 
-## 🔍 Da verificare dopo la pubblicazione
+---
 
-Non verificabili da qui (la rete di sviluppo non raggiunge YouTube né l'hosting):
+### 5. Terzo intervento — pubblicazione e verifiche sul sito online
 
-- L'hosting è Vercel (deploy da `main`): gli header sono in `vercel.json` (Vercel ignora `_headers`). Verificare che CSP e HSTS compaiano e che `404.html` venga servita per gli indirizzi inesistenti.
-- Che i video YouTube (player principale e note nascoste) siano ancora incorporabili.
-- Registrazione del sito su Google Search Console e invio di `sitemap.xml`.
-- Lighthouse sul sito pubblicato: in locale gli unici avvisi riguardano compressione e cache, che sul sito reale sono gestite dall'hosting.
+- **Hosting:** Vercel, con deploy automatico a ogni push su `main`. Il dominio senza `www` reindirizza a `https://www.davidelombardipianoforte.biz/`.
+- **Header di sicurezza:** Vercel ignora il file `_headers`, quindi in produzione CSP e gli altri header non erano mai stati applicati. Ora sono in `vercel.json` (e `_headers` è stato rimosso).
+- **Indirizzo principale:** canonical, `og:url`, dati strutturati, `sitemap.xml` e `robots.txt` usano ora `https://www.davidelombardipianoforte.biz/` (prima puntavano alla versione senza `www`, che è solo un reindirizzamento).
+- **`/favicon.ico` e `/apple-touch-icon.png`** nella root reindirizzano alle icone in `assets/images/` (alcuni browser e Google le cercano lì).
+- Branch di lavoro uniti in `main` ed eliminati.
+
+Verificato sul sito pubblicato (12 ottobre 2026):
+
+| Controllo | Esito |
+|---|---|
+| Header `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` | ✅ presenti |
+| Indirizzo inesistente (`/prova-404`) | ✅ risponde 404 con la pagina personalizzata |
+| Favicon nuova, link "Privacy" nel footer, `privacy.html` | ✅ |
+| Font locali, immagini, video Hero | ✅ caricati, nessuna violazione CSP |
+| Player YouTube principale (`8MBT3ncnnmY`) | ✅ si avvia dentro il sito |
+| Note nascoste (`6Nrexs0g6lk`, `8MBT3ncnnmY`, `pWPiNt8J3I4`, `J02j_bjTO7k`) | ✅ tutti incorporabili, riproduzione verificata |
+| Tutti i file locali referenziati dalle pagine | ✅ rispondono 200 |
+
+## 🔍 Da fare con il tuo account
+
+**Google Search Console** (serve l'accesso all'account Google di Davide o tuo):
+
+1. Vai su `https://search.google.com/search-console` → **Aggiungi proprietà**.
+2. **Consigliato — "Dominio":** inserisci `davidelombardipianoforte.biz` e aggiungi il record **TXT** `google-site-verification=…` nel pannello DNS del dominio (copre sia `www` sia la versione senza).
+   **Alternativa — "Prefisso URL"** `https://www.davidelombardipianoforte.biz/` con **tag HTML**: aggiungi il `<meta name="google-site-verification" content="…">` in `src/components/head.html`, poi `npm run build && npm run check`, commit e push su `main`, quindi **Verifica**. Il tag deve restare nel sito.
+3. Dopo la verifica: **Sitemap** → invia `sitemap.xml` (stato atteso "Operazione riuscita").
+4. **Controllo URL** sulla home → **Richiedi indicizzazione**.
