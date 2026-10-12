@@ -7,7 +7,7 @@ _Ultimo aggiornamento: 12 ottobre 2026_
 Il sito è **completo per ciò che deve fare**: è un portfolio statico di una pagina che presenta Davide Lombardi, mostra performance, esperienze, formazione e permette di contattarlo (email, WhatsApp, social).
 Build e controlli automatici (`npm run build && npm run check`) passano.
 
-Restano solo rifiniture **facoltative** (elencate sotto per priorità). Nessuna blocca la pubblicazione.
+Le rifiniture facoltative individuate sono state completate (vedi sezione 4), tranne quelle che richiedono una tua decisione o un tuo account. Nessuna blocca la pubblicazione.
 
 ---
 
@@ -30,7 +30,7 @@ Le icone erano dei segnaposto vuoti da 1×1 pixel. Ora sono generate dal logo fi
 |---|---|---|---|
 | `hero-chopin.mp4` (video desktop) | 22,7 MB | 9,6 MB (−58%) | Rimossa la traccia audio (il video è sempre muto), ricompressione H.264, `faststart` |
 | `hero-mobile.mp4` (video mobile) | 4,5 MB | 3,7 MB (−17%) | Stessa procedura |
-| `og-image.jpg` (anteprima su WhatsApp/social) | 616 KB | 60 KB | JPEG progressivo |
+| `og-image.jpg` (anteprima su WhatsApp/social) | 616 KB | 43 KB | JPEG progressivo, 1200×630 (vedi sezione 4) |
 | Immagini galleria/esperienze | — | — | Aggiunte versioni da 800 px (`*-800.webp`, circa −45%) servite automaticamente a telefoni e riquadri piccoli tramite `srcset` |
 
 La qualità visiva dei video è praticamente identica all'originale (SSIM 0,994).
@@ -43,28 +43,35 @@ La qualità visiva dei video è praticamente identica all'originale (SSIM 0,994)
 
 ---
 
-## 🔶 Cosa si potrebbe ancora fare (facoltativo)
+### 4. Secondo intervento — completamento delle rifiniture
 
-### Priorità media
+| Attività | Stato | Dettagli |
+|---|---|---|
+| Font ospitati in locale | ✅ | Inter e Playfair Display in `assets/fonts/` (solo latin + latin-ext, ~228 KB in tutto, il browser scarica solo i sottoinsiemi che servono). Rimossi i link a Google Fonts; la CSP ora consente stili e font solo dal sito. |
+| Informativa privacy | ✅ | Nuova pagina `privacy.html`, collegata dal footer. |
+| Pagina 404 | ✅ | Nuova pagina `404.html` con link alla home (Netlify e Cloudflare Pages la usano in automatico). |
+| Foto `image_extra2_1.webp` sfocata | ✅ | Spostata in un riquadro a metà larghezza; a tutta larghezza ora c'è `image_2.webp` (1400 px), che ha la risoluzione giusta. |
+| Copertina video YouTube | ✅ | Sostituita da `yt-cover.webp` locale (24 KB), un fotogramma di Davide al pianoforte. Al caricamento della pagina il sito non contatta più nessun server esterno. |
+| `og-image.jpg` in formato 1200×630 | ✅ | Ridimensionata (contenuto centrato, nessun testo tagliato), 43 KB; aggiunti i meta `og:image:width/height`. |
+| Titolo nascosto per la galleria | ✅ | Aggiunto `<h2 class="sr-only">Galleria fotografica</h2>`. |
+| `sitemap.xml` stabile | ✅ | La data cambia solo se la pagina è cambiata davvero; la sitemap include anche `privacy.html`. |
+| Build multi-pagina | ✅ | `scripts/build.js` e `scripts/check.js` gestiscono tutte le pagine di `src/` (logica comune in `scripts/pages.js`). |
+| Lighthouse | ✅ | Test in locale: **Desktop 100 / 100 / 100 / 100**, **Mobile 99 / 100 / 100 / 100** (Performance / Accessibilità / Best Practices / SEO). |
 
-1. **Accorciare il video Hero.** Dura oltre 5 minuti, ma come sfondo ne bastano 20–40 secondi in loop. Un taglio ridurrebbe il peso di un ulteriore ~90%. È una scelta di contenuto: va deciso quale estratto usare.
-2. **Privacy / GDPR.** Il sito carica i font da Google Fonts (l'indirizzo IP del visitatore arriva a Google) e incorpora video YouTube. Consigliato:
-   - ospitare i font in locale (`assets/fonts/`), eliminando la richiesta a Google;
-   - aggiungere una breve informativa privacy (anche solo una sezione o una pagina `privacy.html`).
-3. **Pagina 404.** Manca una `404.html`; chi sbaglia indirizzo vede la pagina d'errore generica dell'hosting.
+---
 
-### Priorità bassa
+## 🔶 Cosa resta (richiede una tua decisione o un tuo account)
 
-4. **Immagine `image_extra2_1.webp`** (prima foto della galleria) è larga solo 933 px ma viene mostrata a tutta larghezza (fino a 1200 px): su schermi grandi appare leggermente sfocata. Serve un originale a risoluzione più alta.
-5. **Copertina del video YouTube** viene scaricata dai server YouTube (`maxresdefault.jpg`, ~100–200 KB). Si può salvare una copia WebP locale più leggera.
-6. **`og-image.jpg`** ha proporzioni 1376×768; il formato ideale per i social è 1200×630 (1,91:1). Funziona comunque, ma può venire ritagliata.
-7. **Galleria senza titolo**: la sezione `#gallery` non ha un'intestazione (anche nascosta, `sr-only`) per gli screen reader.
-8. **`sitemap.xml`** cambia data a ogni build anche senza modifiche reali, creando differenze inutili nei commit.
-9. **Statistiche visite**: non è presente nessun sistema di analytics (scelta voluta? Se servono, preferire soluzioni senza cookie come Plausible o Cloudflare Web Analytics, aggiornando la CSP).
+1. **Accorciare il video Hero** — escluso per scelta.
+2. **Copertina del video YouTube**: ora è un fotogramma del video di sfondo, non la miniatura ufficiale del video Čajkovskij. Se preferisci quella originale: apri `https://img.youtube.com/vi/8MBT3ncnnmY/maxresdefault.jpg`, convertila in WebP e salvala come `assets/images/yt-cover.webp` (stesso nome, nessuna modifica al codice; aggiorna solo `width`/`height` in `src/components/portfolio.html` se le dimensioni cambiano).
+3. **Informativa privacy**: è un testo base scritto sulla situazione reale del sito (nessun cookie, YouTube solo dopo il clic, contatti via email/WhatsApp). Va riletta da Davide ed eventualmente da un professionista; se vuoi, si può indicare il nome del fornitore di hosting nella sezione "Dati di navigazione".
+4. **Statistiche visite**: non aggiunte. Richiedono di scegliere un servizio e creare un account (consigliati Plausible o Cloudflare Web Analytics, senza cookie). Una volta scelto, servono lo script/token e l'aggiornamento di CSP e informativa privacy.
 
-### Da verificare dopo la pubblicazione
+## 🔍 Da verificare dopo la pubblicazione
 
-- Che l'hosting legga il file `_headers` (Netlify e Cloudflare Pages sì; GitHub Pages no).
-- Punteggio Lighthouse rispetto al budget del README (Performance ≥ 90, le altre ≥ 95).
-- Che tutti i video YouTube (player principale e note nascoste) siano ancora incorporabili.
-- Registrazione del sito su Google Search Console e invio della `sitemap.xml`.
+Non verificabili da qui (la rete di sviluppo non raggiunge YouTube né l'hosting):
+
+- Che l'hosting legga il file `_headers` (Netlify e Cloudflare Pages sì; GitHub Pages no) e serva `404.html` per gli indirizzi inesistenti.
+- Che i video YouTube (player principale e note nascoste) siano ancora incorporabili.
+- Registrazione del sito su Google Search Console e invio di `sitemap.xml`.
+- Lighthouse sul sito pubblicato: in locale gli unici avvisi riguardano compressione e cache, che sul sito reale sono gestite dall'hosting.

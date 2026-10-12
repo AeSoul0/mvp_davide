@@ -1,7 +1,11 @@
+/**
+ * @file scripts/check.js
+ * @description Verify required files, page/source synchronization and local references.
+ */
+
 const fs = require('fs');
 const path = require('path');
-
-const rootDir = path.join(__dirname, '..');
+const { rootDir, listPages, assemblePage } = require('./pages');
 
 const requiredFiles = [
   'index.html',
@@ -17,7 +21,9 @@ const requiredFiles = [
   'assets/images/apple-touch-icon.png',
   'assets/images/icon-192.png',
   'assets/images/icon-512.png',
-  'site.webmanifest'
+  'site.webmanifest',
+  '404.html',
+  'privacy.html'
 ];
 
 console.log('Running site checks...');
@@ -38,56 +44,40 @@ for (const file of requiredFiles) {
   }
 }
 
-// Validate source components
-const sourceIndexPath = path.join(rootDir, 'src', 'index.html');
-const componentsDir = path.join(rootDir, 'src', 'components');
+// Rebuild every page in memory and compare with the generated files
+const generatedPages = [];
 
-const sourceIndex = fs.readFileSync(sourceIndexPath, 'utf8');
-const includeRegex = /<!-- INCLUDE: (.*?) -->/g;
-const includes = [...sourceIndex.matchAll(includeRegex)];
+for (const pageName of listPages()) {
+  const { content, missing } = assemblePage(pageName);
 
-for (const match of includes) {
-  const componentName = match[1];
-  const componentPath = path.join(componentsDir, componentName);
-
-  if (!fs.existsSync(componentPath)) {
-    console.error(`❌ Missing component: src/components/${componentName}`);
+  missing.forEach(name => {
+    console.error(`❌ Missing component: src/components/${name}`);
     errors++;
-  }
-}
+  });
 
-// Rebuild in memory and compare with generated index.html
-let expectedIndex = sourceIndex;
-
-for (const match of includes) {
-  const marker = match[0];
-  const componentName = match[1];
-  const componentPath = path.join(componentsDir, componentName);
-
-  if (!fs.existsSync(componentPath)) {
+  if (!fileExists(pageName)) {
+    console.error(`❌ Missing generated page: ${pageName}. Run "npm run build".`);
+    errors++;
     continue;
   }
 
-  const componentContent = fs.readFileSync(componentPath, 'utf8');
-  expectedIndex = expectedIndex.replace(marker, componentContent);
-}
+  const generated = fs.readFileSync(path.join(rootDir, pageName), 'utf8');
+  generatedPages.push({ pageName, content: generated });
 
-const generatedIndex = fs.readFileSync(
-  path.join(rootDir, 'index.html'),
-  'utf8'
-);
-
-if (expectedIndex !== generatedIndex) {
-  console.error(
-    '❌ index.html is out of sync with src/. Run "npm run build".'
-  );
-  errors++;
-} else {
-  console.log('✅ index.html is synchronized with src/.');
+  if (content !== generated) {
+    console.error(
+      `❌ ${pageName} is out of sync with src/. Run "npm run build".`
+    );
+    errors++;
+  } else {
+    console.log(`✅ ${pageName} is synchronized with src/.`);
+  }
 }
 
 // Check local asset references in generated HTML
 const localReferenceRegex = /(?:src|href)=["']([^"']+)["']/g;
+// srcset holds a comma-separated list of "url descriptor" candidates
+const srcsetRegex = /srcset=["']([^"']+)["']/g;
 const ignoredPrefixes = [
   '#',
   'http://',
@@ -98,27 +88,28 @@ const ignoredPrefixes = [
   'javascript:'
 ];
 
-// srcset holds a comma-separated list of "url descriptor" candidates
-const srcsetRegex = /srcset=["']([^"']+)["']/g;
-const srcsetReferences = [...generatedIndex.matchAll(srcsetRegex)]
-  .flatMap(match => match[1].split(','))
-  .map(candidate => candidate.trim().split(/\s+/)[0]);
+for (const { pageName, content } of generatedPages) {
+  const srcsetReferences = [...content.matchAll(srcsetRegex)]
+    .flatMap(match => match[1].split(','))
+    .map(candidate => candidate.trim().split(/\s+/)[0]);
 
-const references = [...generatedIndex.matchAll(localReferenceRegex)]
-  .map(match => match[1])
-  .concat(srcsetReferences)
-  .filter(reference => {
-    return !ignoredPrefixes.some(prefix => reference.startsWith(prefix));
-  })
-  .map(reference => reference.split('#')[0].split('?')[0])
-  .filter(Boolean);
+  const references = [...content.matchAll(localReferenceRegex)]
+    .map(match => match[1])
+    .concat(srcsetReferences)
+    .filter(reference => {
+      return !ignoredPrefixes.some(prefix => reference.startsWith(prefix));
+    })
+    .map(reference => reference.split('#')[0].split('?')[0])
+    .filter(Boolean);
 
-for (const reference of [...new Set(references)]) {
-  const absolutePath = path.join(rootDir, reference);
+  for (const reference of [...new Set(references)]) {
+    // "/" is the site root; root-relative paths resolve from the repository root
+    const absolutePath = path.join(rootDir, reference === '/' ? 'index.html' : reference);
 
-  if (!fs.existsSync(absolutePath)) {
-    console.error(`❌ Broken local reference: ${reference}`);
-    errors++;
+    if (!fs.existsSync(absolutePath)) {
+      console.error(`❌ Broken local reference in ${pageName}: ${reference}`);
+      errors++;
+    }
   }
 }
 

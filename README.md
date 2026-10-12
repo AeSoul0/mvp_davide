@@ -8,7 +8,7 @@
 
 Portfolio professionale statico progettato per il pianista classico Davide Lombardi.
 
-Il progetto utilizza un'architettura HTML/CSS/JavaScript senza framework frontend, con un piccolo generatore statico custom che assembla i componenti HTML sorgente nell'`index.html` finale.
+Il progetto utilizza un'architettura HTML/CSS/JavaScript senza framework frontend, con un piccolo generatore statico custom che assembla i componenti HTML sorgente nelle pagine finali (`index.html`, `privacy.html`, `404.html`).
 
 L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e adatto al deployment come sito statico.
 
@@ -16,9 +16,9 @@ L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e
 
 ### Architettura
 
-- **SSG custom minimale:** `scripts/build.js` assembla i componenti HTML presenti in `src/components/` nell'`index.html`.
+- **SSG custom minimale:** `scripts/build.js` trasforma ogni pagina `src/*.html` nella pagina omonima della root, risolvendo i componenti di `src/components/`.
 - **Nessun framework frontend:** il sito utilizza HTML, CSS e JavaScript vanilla.
-- **Output statico:** il file `index.html` generato è direttamente pubblicabile.
+- **Output statico:** le pagine generate sono direttamente pubblicabili.
 - **QA automatico:** `scripts/check.js` verifica file obbligatori, componenti, riferimenti locali e sincronizzazione tra sorgenti e output.
 
 ### Performance
@@ -26,7 +26,9 @@ L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e
 - Video Hero con versione desktop e mobile, ricompressi senza traccia audio (il video è sempre muto) e con `faststart` per l'avvio immediato.
 - Poster statico per il video Hero.
 - Immagini principalmente in formato WebP, con varianti `-800.webp` servite tramite `srcset`/`sizes` agli schermi più piccoli.
-- Immagine Open Graph (`og-image.jpg`) ottimizzata in JPEG progressivo.
+- Immagine Open Graph (`og-image.jpg`) 1200×630, ottimizzata in JPEG progressivo.
+- Font ospitati in locale (solo sottoinsiemi latin e latin-ext) con `preload` dei due principali.
+- Copertina del player YouTube servita in locale (`yt-cover.webp`).
 - YouTube caricato tramite facade: l'iframe viene creato solo quando l'utente interagisce.
 - Animazioni gestite tramite `IntersectionObserver`.
 - Supporto a `prefers-reduced-motion`.
@@ -90,14 +92,17 @@ scripts/build.js
 che legge:
 
 ```text
-src/index.html
+src/*.html          (index, privacy, 404)
 src/components/
 ```
 
-e genera:
+e genera nella root:
 
 ```text
 index.html
+privacy.html
+404.html
+sitemap.xml         (la data <lastmod> cambia solo se la pagina è cambiata davvero)
 ```
 
 Successivamente esegui:
@@ -117,7 +122,7 @@ e verifica:
 - presenza dei file obbligatori;
 - presenza dei componenti HTML;
 - coerenza del build;
-- sincronizzazione tra `src/` e `index.html`;
+- sincronizzazione tra `src/` e le pagine generate;
 - riferimenti locali a file mancanti (inclusi quelli in `srcset`);
 - presenza degli asset principali.
 
@@ -167,13 +172,16 @@ Puoi utilizzare un'estensione come **Live Server**.
 ├── assets/
 │   ├── css/
 │   │   └── style.css
+│   ├── fonts/                     (Inter e Playfair Display, ospitati in locale)
+│   │   └── *.woff2
 │   ├── js/
 │   │   └── main.js
 │   ├── images/
 │   │   ├── favicon.ico            (16/32/48 px, generata dal logo firma)
 │   │   ├── apple-touch-icon.png   (180 px)
 │   │   ├── icon-192.png / icon-512.png
-│   │   ├── og-image.jpg
+│   │   ├── og-image.jpg           (1200×630)
+│   │   ├── yt-cover.webp          (copertina del player YouTube)
 │   │   ├── *.webp
 │   │   └── *-800.webp             (varianti per srcset)
 │   └── video/
@@ -183,20 +191,27 @@ Puoi utilizzare un'estensione come **Live Server**.
 │
 ├── scripts/
 │   ├── build.js
-│   └── check.js
+│   ├── check.js
+│   └── pages.js                   (funzioni condivise da build e check)
 │
 ├── src/
 │   ├── index.html
+│   ├── privacy.html
+│   ├── 404.html
 │   └── components/
 │       ├── head.html
 │       ├── nav.html
 │       ├── hero.html
 │       ├── portfolio.html
 │       ├── resume.html
-│       └── footer.html
+│       ├── footer.html
+│       ├── simple-head.html       (intestazione di privacy e 404)
+│       └── simple-footer.html
 │
 ├── .gitignore
+├── 404.html
 ├── index.html
+├── privacy.html
 ├── package.json
 ├── robots.txt
 ├── site.webmanifest
@@ -210,10 +225,13 @@ Puoi utilizzare un'estensione come **Live Server**.
 | File | Funzione |
 |---|---|
 | `src/index.html` | Template principale |
+| `src/privacy.html`, `src/404.html` | Informativa privacy e pagina "non trovata" |
 | `src/components/*.html` | Componenti HTML riutilizzabili |
 | `scripts/build.js` | Generatore dell'HTML finale |
 | `scripts/check.js` | Controlli automatici |
-| `index.html` | Output generato, non modificare manualmente |
+| `scripts/pages.js` | Elenco e assemblaggio delle pagine (usato da build e check) |
+| `index.html`, `privacy.html`, `404.html` | Output generato, non modificare manualmente |
+| `assets/fonts/` | Font ospitati in locale (nessuna richiesta a Google) |
 | `assets/css/style.css` | Stili principali |
 | `assets/js/main.js` | Interazioni e logica frontend |
 | `_headers` | Header HTTP e policy di sicurezza |
@@ -250,9 +268,11 @@ Non modificare manualmente:
 
 ```text
 index.html
+privacy.html
+404.html
 ```
 
-perché è un file generato dal build.
+perché sono file generati dal build.
 
 ## 🌐 Deploy
 
@@ -280,13 +300,13 @@ Le policy principali sono definite in:
 _headers
 ```
 
-La Content Security Policy consente esclusivamente le origini necessarie al funzionamento del sito, incluse:
+La Content Security Policy consente esclusivamente le origini necessarie al funzionamento del sito. Stili e font sono serviti solo dal sito stesso (`'self'`); l'unica origine esterna per i frame è:
 
 ```text
-https://fonts.googleapis.com
-https://fonts.gstatic.com
 https://www.youtube-nocookie.com
 ```
+
+Al caricamento della pagina il sito non contatta alcun servizio esterno: YouTube viene caricato solo dopo un clic dell'utente.
 
 Le modifiche alla CSP devono essere effettuate con attenzione perché possono impedire il caricamento di font, iframe o risorse esterne.
 
