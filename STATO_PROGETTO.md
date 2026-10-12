@@ -89,12 +89,13 @@ Verificato sul sito pubblicato (12 ottobre 2026):
 | Note nascoste (`6Nrexs0g6lk`, `8MBT3ncnnmY`, `pWPiNt8J3I4`, `J02j_bjTO7k`) | ✅ tutti incorporabili, riproduzione verificata |
 | Tutti i file locali referenziati dalle pagine | ✅ rispondono 200 |
 
-## 🔍 Da fare con il tuo account
+### 6. Google Search Console (12 ottobre 2026)
 
-**Google Search Console** (serve l'accesso all'account Google di Davide o tuo):
+| Passo | Stato |
+|---|---|
+| Proprietà **Prefisso URL** `https://www.davidelombardipianoforte.biz/` | ✅ verificata con tag HTML |
+| Tag `google-site-verification` | In `src/components/head.html`. **Non rimuoverlo**, altrimenti la proprietà perde la verifica. |
+| Sitemap `sitemap.xml` | ✅ inviata. Subito dopo l'invio Search Console mostra "Impossibile recuperare" perché Google non l'ha ancora letta: il file risponde correttamente (200, XML valido). Ricontrollare tra qualche giorno: lo stato atteso è "Operazione riuscita". |
+| Controllo URL home | ✅ "L'URL si trova su Google" (pagina già indicizzata); richiesta nuova indicizzazione inviata. |
 
-1. Vai su `https://search.google.com/search-console` → **Aggiungi proprietà**.
-2. **Consigliato — "Dominio":** inserisci `davidelombardipianoforte.biz` e aggiungi il record **TXT** `google-site-verification=…` nel pannello DNS del dominio (copre sia `www` sia la versione senza).
-   **Alternativa — "Prefisso URL"** `https://www.davidelombardipianoforte.biz/` con **tag HTML**: aggiungi il `<meta name="google-site-verification" content="…">` in `src/components/head.html`, poi `npm run build && npm run check`, commit e push su `main`, quindi **Verifica**. Il tag deve restare nel sito.
-3. Dopo la verifica: **Sitemap** → invia `sitemap.xml` (stato atteso "Operazione riuscita").
-4. **Controllo URL** sulla home → **Richiedi indicizzazione**.
+Il DNS del dominio è gestito da **Wix** (`ns4/ns5.wixdns.net`). Per avere in futuro anche la proprietà "Dominio" (copre `www` e la versione senza) serve aggiungere il record TXT dal pannello DNS di Wix.

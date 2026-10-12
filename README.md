@@ -276,7 +276,7 @@ perché sono file generati dal build.
 
 ## 🌐 Deploy
 
-Il progetto è pensato per essere distribuito come sito statico.
+Il sito è pubblicato su **Vercel**, con deploy automatico a ogni push su `main` (indirizzo principale: `https://www.davidelombardipianoforte.biz/`). Gli header HTTP sono in `vercel.json`.
 
 Build command:
 
