@@ -1,0 +1,12 @@
+{
+  "name": "Davide Lombardi — Pianista",
+  "short_name": "D. Lombardi",
+  "icons": [
+    { "src": "assets/images/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "assets/images/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#0A1422",
+  "background_color": "#0A1422"
+}

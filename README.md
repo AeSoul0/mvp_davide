@@ -23,9 +23,10 @@ L'obiettivo è mantenere il progetto semplice, veloce, facilmente manutenibile e
 
 ### Performance
 
-- Video Hero con versione desktop e mobile.
+- Video Hero con versione desktop e mobile, ricompressi senza traccia audio (il video è sempre muto) e con `faststart` per l'avvio immediato.
 - Poster statico per il video Hero.
-- Immagini principalmente in formato WebP.
+- Immagini principalmente in formato WebP, con varianti `-800.webp` servite tramite `srcset`/`sizes` agli schermi più piccoli.
+- Immagine Open Graph (`og-image.jpg`) ottimizzata in JPEG progressivo.
 - YouTube caricato tramite facade: l'iframe viene creato solo quando l'utente interagisce.
 - Animazioni gestite tramite `IntersectionObserver`.
 - Supporto a `prefers-reduced-motion`.
@@ -61,7 +62,6 @@ Le note nascoste presenti nella pagina possono attivare un mini-player basato su
 Le tracce configurate includono composizioni di:
 
 - Čajkovskij
-- Brahms
 - Rachmaninov
 - Mozart
 
@@ -118,7 +118,7 @@ e verifica:
 - presenza dei componenti HTML;
 - coerenza del build;
 - sincronizzazione tra `src/` e `index.html`;
-- riferimenti locali a file mancanti;
+- riferimenti locali a file mancanti (inclusi quelli in `srcset`);
 - presenza degli asset principali.
 
 ### Comando completo
@@ -170,9 +170,12 @@ Puoi utilizzare un'estensione come **Live Server**.
 │   ├── js/
 │   │   └── main.js
 │   ├── images/
-│   │   ├── favicon.ico
-│   │   ├── apple-touch-icon.png
-│   │   └── *.webp
+│   │   ├── favicon.ico            (16/32/48 px, generata dal logo firma)
+│   │   ├── apple-touch-icon.png   (180 px)
+│   │   ├── icon-192.png / icon-512.png
+│   │   ├── og-image.jpg
+│   │   ├── *.webp
+│   │   └── *-800.webp             (varianti per srcset)
 │   └── video/
 │       ├── hero-chopin.mp4
 │       ├── hero-mobile.mp4
@@ -196,7 +199,9 @@ Puoi utilizzare un'estensione come **Live Server**.
 ├── index.html
 ├── package.json
 ├── robots.txt
+├── site.webmanifest
 ├── sitemap.xml
+├── STATO_PROGETTO.md
 └── README.md
 ```
 
@@ -213,6 +218,8 @@ Puoi utilizzare un'estensione come **Live Server**.
 | `assets/js/main.js` | Interazioni e logica frontend |
 | `_headers` | Header HTTP e policy di sicurezza |
 | `robots.txt` | Regole per i crawler |
+| `site.webmanifest` | Manifest con le icone (Android / "aggiungi a schermata Home") |
+| `STATO_PROGETTO.md` | Log dello stato del sito e delle attività rimanenti |
 | `sitemap.xml` | Sitemap XML |
 | `package.json` | Script npm del progetto |
 

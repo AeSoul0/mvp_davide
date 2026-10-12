@@ -14,7 +14,10 @@ const requiredFiles = [
   'sitemap.xml',
   '_headers',
   'assets/images/favicon.ico',
-  'assets/images/apple-touch-icon.png'
+  'assets/images/apple-touch-icon.png',
+  'assets/images/icon-192.png',
+  'assets/images/icon-512.png',
+  'site.webmanifest'
 ];
 
 console.log('Running site checks...');
@@ -95,8 +98,15 @@ const ignoredPrefixes = [
   'javascript:'
 ];
 
+// srcset holds a comma-separated list of "url descriptor" candidates
+const srcsetRegex = /srcset=["']([^"']+)["']/g;
+const srcsetReferences = [...generatedIndex.matchAll(srcsetRegex)]
+  .flatMap(match => match[1].split(','))
+  .map(candidate => candidate.trim().split(/\s+/)[0]);
+
 const references = [...generatedIndex.matchAll(localReferenceRegex)]
   .map(match => match[1])
+  .concat(srcsetReferences)
   .filter(reference => {
     return !ignoredPrefixes.some(prefix => reference.startsWith(prefix));
   })
