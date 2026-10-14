@@ -1020,7 +1020,17 @@ nav.scrolled {
 }
 
 @media (max-width: 768px) {
-  .hero-signature { display: none; }
+  /* Phone hero: signature centered above the "ROMA / PIANISTA" label.
+     display: contents lifts the signature and the buttons into the
+     hero column so the signature can be ordered first. */
+  .hero-bottom-right { display: contents; }
+  .hero-signature {
+    order: -1;
+    align-self: center;
+    height: 120px;
+  }
+  .hero-actions { margin-top: -20px; }
+
   .section-padding { padding: 80px 0; }
   .desktop-only { display: none; }
   .mobile-only { display: flex; }
